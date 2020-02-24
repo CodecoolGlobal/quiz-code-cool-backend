@@ -23,7 +23,7 @@ public class Initializer {
         loadInitQuestions();
     }
 
-    private void loadInitCategories() {
+    private void loadInitCategories() throws Exception {
         categoryStorage.add(new Category(1, "Python"));
         categoryStorage.add(new Category(2, "Java"));
         categoryStorage.add(new Category(3, "CSS"));

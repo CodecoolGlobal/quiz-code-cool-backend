@@ -1,17 +1,27 @@
 package com.codecool.codecoolquiz.model;
 
-import org.springframework.stereotype.Component;
-
 public class Category {
     private int id;
     private String name;
 
     public Category(int id, String name) {
-        this.id = id;
         this.name = name;
+        this.id = id;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
