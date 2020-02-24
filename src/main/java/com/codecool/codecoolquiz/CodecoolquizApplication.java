@@ -18,7 +18,7 @@ public class CodecoolquizApplication {
     }
 
     @PostConstruct
-    public void afterInit() {
+    public void afterInit() throws Exception {
         initializer.loadInitData();
     }
 
