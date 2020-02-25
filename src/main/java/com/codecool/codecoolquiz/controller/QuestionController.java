@@ -23,7 +23,7 @@ public class QuestionController {
     public List<Question> getRequestedQuestions(
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String type,
-            @RequestParam String amount) {
+            @RequestParam(required = false) String amount) {
 
         List<Question> resultList = questionStorage.getAll();
 
@@ -39,10 +39,14 @@ public class QuestionController {
                     .collect(Collectors.toList());
         }
 
-        if (resultList.size() < Integer.parseInt(amount)) {
-            return null;
+        if (amount != null) {
+            if (resultList.size() < Integer.parseInt(amount)) {
+                return null;
+            } else {
+                return util.getRandomQuestionsFromList(resultList, Integer.parseInt(amount));
+            }
         } else {
-            return util.getRandomQuestionsFromList(resultList, Integer.parseInt(amount));
+            return resultList;
         }
     }
 
