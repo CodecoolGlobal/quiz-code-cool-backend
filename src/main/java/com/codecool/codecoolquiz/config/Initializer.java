@@ -111,7 +111,7 @@ public class Initializer {
         questionStorage.add(new Question(
                 categoryStorage.getById(4),
                 "multiple",
-                "What is returned by TRUNC(789.8389, 2)?",
+                    "What is returned by TRUNC(789.8389, 2)?",
                 "789.83",
                 Arrays.asList("789.84", "78", "789.00")
         ));
