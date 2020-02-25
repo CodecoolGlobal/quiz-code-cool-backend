@@ -50,6 +50,11 @@ public class QuestionController {
         }
     }
 
+    @GetMapping("/questions/{questionId}")
+    public Question getQuestion(@PathVariable String questionId) throws Exception {
+        return questionStorage.getQuestionById(questionId);
+    }
+
     @PostMapping("questions/add")
     public void saveNewQuestion(@RequestBody Question question) {
         questionStorage.add(question);

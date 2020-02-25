@@ -3,6 +3,8 @@ package com.codecool.codecoolquiz.model;
 import java.util.List;
 
 public class Question {
+    private static int counter = 0;
+    private int id;
     private Category category;
     private String type;
     private String question;
@@ -29,7 +31,12 @@ public class Question {
         return incorrectAnswers;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Question(Category category, String type, String question, String correctAnswer, List<String> incorrectAnswers) {
+        id = ++counter;
         this.category = category;
         this.type = type;
         this.question = question;
@@ -40,7 +47,8 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "category=" + category +
+                "id=" + id +
+                ", category=" + category +
                 ", type='" + type + '\'' +
                 ", question='" + question + '\'' +
                 ", correctAnswer='" + correctAnswer + '\'' +
