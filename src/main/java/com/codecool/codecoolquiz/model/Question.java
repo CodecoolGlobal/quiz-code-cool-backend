@@ -36,4 +36,15 @@ public class Question {
         this.correctAnswer = correctAnswer;
         this.incorrectAnswers = incorrectAnswers;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "category=" + category +
+                ", type='" + type + '\'' +
+                ", question='" + question + '\'' +
+                ", correctAnswer='" + correctAnswer + '\'' +
+                ", incorrectAnswers=" + incorrectAnswers +
+                '}';
+    }
 }
