@@ -18,4 +18,11 @@ public class QuestionStorage {
     public void add(Question question) {
         questions.add(question);
     }
+
+    @Override
+    public String toString() {
+        return "QuestionStorage{" +
+                "questions=" + questions +
+                '}';
+    }
 }
