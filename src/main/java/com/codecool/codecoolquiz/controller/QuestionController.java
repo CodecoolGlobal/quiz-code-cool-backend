@@ -29,7 +29,7 @@ public class QuestionController {
 
         if (category != null) {
             resultList = resultList.stream()
-                    .filter(question -> question.getCategory().getName().equals(category))
+                    .filter(question -> question.getCategory().getId() == Integer.parseInt(category))
                     .collect(Collectors.toList());
         }
 
