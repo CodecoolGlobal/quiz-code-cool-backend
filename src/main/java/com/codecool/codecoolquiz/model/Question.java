@@ -6,8 +6,8 @@ public class Question {
     private Category category;
     private String type;
     private String question;
-    private String correct_answer;
-    private List<String> incorrect_answers;
+    private String correctAnswer;
+    private List<String> incorrectAnswers;
 
     public Category getCategory() {
         return category;
@@ -21,19 +21,19 @@ public class Question {
         return question;
     }
 
-    public String getCorrect_answer() {
-        return correct_answer;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public List<String> getIncorrect_answers() {
-        return incorrect_answers;
+    public List<String> getIncorrectAnswers() {
+        return incorrectAnswers;
     }
 
-    public Question(Category category, String type, String question, String correct_answer, List<String> incorrect_answers) {
+    public Question(Category category, String type, String question, String correctAnswer, List<String> incorrectAnswers) {
         this.category = category;
         this.type = type;
         this.question = question;
-        this.correct_answer = correct_answer;
-        this.incorrect_answers = incorrect_answers;
+        this.correctAnswer = correctAnswer;
+        this.incorrectAnswers = incorrectAnswers;
     }
 }
