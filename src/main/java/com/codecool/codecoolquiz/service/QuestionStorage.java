@@ -25,4 +25,11 @@ public class QuestionStorage {
                 "questions=" + questions +
                 '}';
     }
+
+    public Question getQuestionById(String questionId) throws Exception {
+        return questions.stream()
+                .filter(question -> question.getId() == Integer.parseInt(questionId))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Question not found"));
+    }
 }
