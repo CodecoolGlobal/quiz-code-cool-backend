@@ -3,10 +3,9 @@ package com.codecool.codecoolquiz.controller;
 import com.codecool.codecoolquiz.Util;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.service.QuestionStorage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,5 +44,10 @@ public class QuestionController {
         } else {
             return util.getRandomQuestionsFromList(resultList, Integer.parseInt(amount));
         }
+    }
+
+    @PostMapping("questions/add")
+    public void saveNewQuestion(@RequestBody Question question) {
+        questionStorage.add(question);
     }
 }
