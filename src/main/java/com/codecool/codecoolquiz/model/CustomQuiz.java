@@ -1,13 +1,13 @@
 package com.codecool.codecoolquiz.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomQuiz {
 
     private int id;
     private String name;
-    private Set<Question> questions = new HashSet<>();
+    private List<Question> questions = new ArrayList<>();
 
     public CustomQuiz(int id, String name) {
         this.id = id;
@@ -26,7 +26,7 @@ public class CustomQuiz {
         return name;
     }
 
-    public Set<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 }

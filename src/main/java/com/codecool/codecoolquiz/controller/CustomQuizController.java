@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+import com.codecool.codecoolquiz.Util;
 
 @RestController
 public class CustomQuizController {
@@ -18,13 +18,17 @@ public class CustomQuizController {
     @Autowired
     CustomQuizStorage customQuizStorage;
 
+    @Autowired
+    Util util;
+
     @GetMapping("/customquizzes/{id}")
-    public Set<Question> getQuestionsForCustomQuiz(@PathVariable int id) {
-        return Objects.requireNonNull(customQuizStorage.getAll()
+    public List<Question> getQuestionsForCustomQuiz(@PathVariable int id) {
+        List<Question> questions = Objects.requireNonNull(customQuizStorage.getAll()
                 .stream()
                 .filter(customQuiz -> customQuiz.getId() == id)
                 .findFirst().orElse(null))
                 .getQuestions();
+        return util.getRandomQuestionsFromList(questions, questions.size());
     }
 
     @GetMapping("/customquizzes")
