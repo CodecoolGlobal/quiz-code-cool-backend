@@ -19,12 +19,8 @@ public class CustomQuizController {
     CustomQuizStorage customQuizStorage;
 
     @GetMapping("/customquizzes/{id}")
-    public Set<Question> getQuestionsForCustomQuiz(@PathVariable int id) {
-        return Objects.requireNonNull(customQuizStorage.getAll()
-                .stream()
-                .filter(customQuiz -> customQuiz.getId() == id)
-                .findFirst().orElse(null))
-                .getQuestions();
+    public List<Question> getQuestionsForCustomQuiz(@PathVariable int id) {
+        return customQuizStorage.getQuestionsForCustomQuizById(id);
     }
 
     @GetMapping("/customquizzes")
