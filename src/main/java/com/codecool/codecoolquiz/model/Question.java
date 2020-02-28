@@ -11,6 +11,11 @@ public class Question {
     private String correctAnswer;
     private List<String> incorrectAnswers;
 
+
+    public int getId() {
+        return id;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -29,10 +34,6 @@ public class Question {
 
     public List<String> getIncorrectAnswers() {
         return incorrectAnswers;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public Question(Category category, String type, String question, String correctAnswer, List<String> incorrectAnswers) {
