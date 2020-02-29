@@ -1,14 +1,14 @@
 package com.codecool.codecoolquiz.controller;
 
-import com.codecool.codecoolquiz.Util;
+import com.codecool.codecoolquiz.model.FilterCriteria;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class QuestionController {
@@ -17,7 +17,7 @@ public class QuestionController {
     QuestionStorage questionStorage;
 
     @Autowired
-    Util util;
+    FilterCriteria filterCriteria;
 
     @GetMapping("/questions")
     public List<Question> getRequestedQuestions(
@@ -25,29 +25,12 @@ public class QuestionController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String amount) {
 
-        List<Question> resultList = questionStorage.getAll();
+        filterCriteria.setFilters(
+                new Pair<>("category", category),
+                new Pair<>("type", type),
+                new Pair<>("amount", amount));
 
-        if (category != null) {
-            resultList = resultList.stream()
-                    .filter(question -> question.getCategory().getId() == Integer.parseInt(category))
-                    .collect(Collectors.toList());
-        }
-
-        if (type != null) {
-            resultList = resultList.stream()
-                    .filter(question -> question.getType().equals(type))
-                    .collect(Collectors.toList());
-        }
-
-        if (amount != null) {
-            if (resultList.size() < Integer.parseInt(amount)) {
-                return null;
-            } else {
-                return util.getRandomQuestionsFromList(resultList, Integer.parseInt(amount));
-            }
-        } else {
-            return resultList;
-        }
+        return questionStorage.getFilteredQuestions(filterCriteria);
     }
 
     @GetMapping("/questions/{questionId}")
