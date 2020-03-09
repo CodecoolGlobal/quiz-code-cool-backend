@@ -33,6 +33,6 @@ public class CustomQuizStorage {
                 .stream()
                 .filter(customQuiz -> customQuiz.getId() == id)
                 .findFirst().orElse(null))
-                .getCustomQuizzes();
+                .getQuestions();
     }
 }
