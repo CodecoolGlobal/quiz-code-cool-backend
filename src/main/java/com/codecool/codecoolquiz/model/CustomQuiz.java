@@ -7,7 +7,7 @@ public class CustomQuiz {
 
     private int id;
     private String name;
-    private List<Question> customQuizzes = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     public CustomQuiz(int id, String name) {
         this.id = id;
@@ -15,7 +15,7 @@ public class CustomQuiz {
     }
 
     public void add(Question question) {
-        customQuizzes.add(question);
+        questions.add(question);
     }
 
     public int getId() {
@@ -26,7 +26,7 @@ public class CustomQuiz {
         return name;
     }
 
-    public List<Question> getCustomQuizzes() {
-        return customQuizzes;
+    public List<Question> getQuestions() {
+        return questions;
     }
 }
