@@ -30,7 +30,7 @@ public class QuestionController {
                 new Pair<>("type", type),
                 new Pair<>("amount", amount));
 
-        return questionStorage.getFilteredQuestions(filterCriteria);
+        return questionStorage.getFilteredQuestions(category, type, amount);
     }
 
     @GetMapping("/questions/{questionId}")
