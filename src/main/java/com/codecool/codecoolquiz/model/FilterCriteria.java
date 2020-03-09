@@ -1,6 +1,6 @@
 package com.codecool.codecoolquiz.model;
 
-import javafx.util.Pair;
+import org.javatuples.Pair;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;

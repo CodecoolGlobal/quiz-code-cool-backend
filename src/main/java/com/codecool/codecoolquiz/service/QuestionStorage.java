@@ -3,7 +3,7 @@ package com.codecool.codecoolquiz.service;
 import com.codecool.codecoolquiz.Util;
 import com.codecool.codecoolquiz.model.FilterCriteria;
 import com.codecool.codecoolquiz.model.Question;
-import javafx.util.Pair;
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -4,7 +4,7 @@ import com.codecool.codecoolquiz.model.FilterCriteria;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 
-import javafx.util.Pair;
+import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
