@@ -1,6 +1,6 @@
 package com.codecool.codecoolquiz;
 
-import com.codecool.codecoolquiz.config.Initializer;
+import com.codecool.codecoolquiz.service.Initializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

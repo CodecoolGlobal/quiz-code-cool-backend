@@ -1,4 +1,4 @@
-package com.codecool.codecoolquiz.config;
+package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.CustomQuiz;
