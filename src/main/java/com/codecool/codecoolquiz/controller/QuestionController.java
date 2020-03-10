@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class QuestionController {
@@ -34,7 +35,7 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/{questionId}")
-    public Question getQuestion(@PathVariable String questionId) throws Exception {
+    public Optional<Question> getQuestion(@PathVariable String questionId) {
         return questionStorage.getQuestionById(questionId);
     }
 

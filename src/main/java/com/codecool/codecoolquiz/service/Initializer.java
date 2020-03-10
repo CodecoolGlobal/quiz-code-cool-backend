@@ -24,8 +24,8 @@ public class Initializer {
     CustomQuizStorage customQuizStorage;
 
     public void loadInitData() throws Exception {
-//        loadInitCategories();
-//        loadInitQuestions();
+        loadInitCategories();
+        loadInitQuestions();
         loadInitCustomQuizzes();
     }
 

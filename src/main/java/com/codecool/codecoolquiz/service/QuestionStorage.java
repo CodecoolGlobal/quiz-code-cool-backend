@@ -2,17 +2,14 @@ package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.Util;
 import com.codecool.codecoolquiz.model.Category;
-import com.codecool.codecoolquiz.model.FilterCriteria;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.repository.QuestionRepository;
-import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class QuestionStorage {
@@ -36,8 +33,8 @@ public class QuestionStorage {
         questionRepository.save(question);
     }
 
-    public Question getQuestionById(String questionId) {
-        return questionRepository.getOne(Integer.parseInt(questionId));
+    public Optional<Question> getQuestionById(String questionId) {
+        return questionRepository.findById(Integer.parseInt(questionId));
     }
 
     public List<Question> getFilteredQuestions(String category, String type, String amount) {
