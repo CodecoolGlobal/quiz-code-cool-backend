@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@JsonIgnoreProperties({"category", "quizzes"})
+@JsonIgnoreProperties({"quizzes"})
 public class Question {
 
     @Id
