@@ -1,10 +1,13 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.Util;
+import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.FilterCriteria;
 import com.codecool.codecoolquiz.model.Question;
+import com.codecool.codecoolquiz.repository.QuestionRepository;
 import org.javatuples.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,39 +20,42 @@ public class QuestionStorage {
     @Autowired
     Util util;
 
+    @Autowired
+    QuestionRepository questionRepository;
+
+    @Autowired
+    CategoryStorage categoryStorage;
+
     private List<Question> questions = new ArrayList<>();
 
     public List<Question> getAll() {
-        return questions;
+        return questionRepository.findAll();
     }
 
     public void add(Question question) {
-        questions.add(question);
+        questionRepository.save(question);
     }
 
-    @Override
-    public String toString() {
-        return "QuestionStorage{" +
-                "questions=" + questions +
-                '}';
-    }
-
-    public Question getQuestionById(String questionId) throws Exception {
-        return questions.stream()
-                .filter(question -> question.getId() == Integer.parseInt(questionId))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Question not found"));
+    public Question getQuestionById(String questionId) {
+        return questionRepository.getOne(Integer.parseInt(questionId));
     }
 
     public List<Question> getFilteredQuestions(String category, String type, String amount) {
 
-        //List<Pair<String, String>> filters = filterCriteria.getFilters();
+        List<Question> resultList;
 
-        List<Question> resultList = getAll()
-                .stream()
-                .filter(question -> category == null || question.getCategory().getId() == Integer.parseInt(category))
-                .filter(question -> type == null || question.getType().equals(type))
-                .collect(Collectors.toList());
+        if (category != null) {
+            Category questionCategory = categoryStorage.getById(Integer.parseInt(category));
+            if (type != null) {
+                resultList = questionRepository.findByCategoryAndType(questionCategory, type);
+            } else {
+                resultList = questionRepository.findByCategory(questionCategory);
+            }
+        } else if (type != null) {
+            resultList = questionRepository.findByType(type);
+        } else {
+            resultList = questionRepository.findAll();
+        }
 
         if (amount == null) {
             return resultList;
@@ -60,5 +66,6 @@ public class QuestionStorage {
         } else {
             return util.getRandomQuestionsFromList(resultList, Integer.parseInt(amount));
         }
+
     }
 }
