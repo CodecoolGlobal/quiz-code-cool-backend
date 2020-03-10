@@ -24,47 +24,51 @@ public class Initializer {
     CustomQuizStorage customQuizStorage;
 
     public void loadInitData() throws Exception {
-        loadInitCategories();
-        loadInitQuestions();
+//        loadInitCategories();
+//        loadInitQuestions();
         loadInitCustomQuizzes();
     }
 
     private void loadInitCategories() throws Exception {
-        categoryStorage.add(new Category(1, "Python"));
-        categoryStorage.add(new Category(2, "Java"));
-        categoryStorage.add(new Category(3, "CSS"));
-        categoryStorage.add(new Category(4, "SQL"));
-        categoryStorage.add(new Category(5, "HTML"));
-        categoryStorage.add(new Category(6, "General"));
+        categoryStorage.add(Category.builder().name("Python").build());
+        categoryStorage.add(Category.builder().name("Java").build());
+        categoryStorage.add(Category.builder().name("CSS").build());
+        categoryStorage.add(Category.builder().name("SQL").build());
+        categoryStorage.add(Category.builder().name("HTML").build());
+        categoryStorage.add(Category.builder().name("General").build());
     }
 
     private void loadInitQuestions() throws Exception {
-        Question question1 = new Question(categoryStorage.getById(1),
-                "multiple",
-                "Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?",
-                "Apple",
-                Arrays.asList("Microsoft", "Atari", "Commodore"));
-        Question question2 = new Question(
-                categoryStorage.getById(1),
-                "multiple",
-                "In any programming language, what is the most common way to iterate through an array?",
-                "For loops",
-                Arrays.asList("If Statements", "Do-while loops", "While loops")
-        );
-        Question question3 = new Question(
-                categoryStorage.getById(2),
-                "multiple",
-                "Which is a valid keyword in java?",
-                "interface",
-                Arrays.asList("string", "Float", "unsigned")
-        );
-        Question question4 = new Question(
-                categoryStorage.getById(2),
-                "multiple",
-                "Which is the valid declarations within an interface definition?",
-                "public double methoda();",
-                Arrays.asList("public final double methoda();", "static void methoda(double d1);", "protected void methoda(double d1);")
-        );
+        Question question1 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type("multiple")
+                .question("Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?")
+                .correctAnswer("Apple")
+                .incorrectAnswers(Arrays.asList("Microsoft", "Atari", "Commodore"))
+                .build();
+        Question question2 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type("multiple")
+                .question("In any programming language, what is the most common way to iterate through an array?")
+                .correctAnswer("For loops")
+                .incorrectAnswers(Arrays.asList("If Statements", "Do-while loops", "While loops"))
+                .build();
+        Question question3 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type("multiple")
+                .question("Which is a valid keyword in java?")
+                .correctAnswer("interface")
+                .incorrectAnswers(Arrays.asList("string", "Float", "unsigned"))
+                .build();
+        Question question4 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type("multiple")
+                .question("Which is the valid declarations within an interface definition?")
+                .correctAnswer("public double methoda();")
+                .incorrectAnswers(Arrays.asList("public final double methoda();", "static void methoda(double d1);", "protected void methoda(double d1);"))
+                .build();
+
+/*
         Question question5 = new Question(
                 categoryStorage.getById(2),
                 "multiple",
@@ -155,28 +159,35 @@ public class Initializer {
                 "How can you make a numbered list?",
                 "<ol>",
                 Arrays.asList("<ul>", "<dl>", "<list>")
-        );
+        );*/
         questionStorage.add(question1);
         questionStorage.add(question2);
         questionStorage.add(question3);
         questionStorage.add(question4);
-        questionStorage.add(question5);
-        questionStorage.add(question6);
-        questionStorage.add(question7);
-        questionStorage.add(question8);
-        questionStorage.add(question9);
-        questionStorage.add(question10);
-        questionStorage.add(question11);
-        questionStorage.add(question12);
-        questionStorage.add(question13);
-        questionStorage.add(question14);
-        questionStorage.add(question15);
-        questionStorage.add(question16);
-        questionStorage.add(question17);
+//        questionStorage.add(question5);
+//        questionStorage.add(question6);
+//        questionStorage.add(question7);
+//        questionStorage.add(question8);
+//        questionStorage.add(question9);
+//        questionStorage.add(question10);
+//        questionStorage.add(question11);
+//        questionStorage.add(question12);
+//        questionStorage.add(question13);
+//        questionStorage.add(question14);
+//        questionStorage.add(question15);
+//        questionStorage.add(question16);
+//        questionStorage.add(question17);
     }
-
     public void loadInitCustomQuizzes() {
-        CustomQuiz customQuiz1 = new CustomQuiz(1, "Eszti");
+        CustomQuiz quiz1 = CustomQuiz.builder().id(0).name("Eszti").build();
+        CustomQuiz quiz2 = CustomQuiz.builder().name("Mira").build();
+
+        quiz1.setQuestions(questionStorage.getAll());
+        customQuizStorage.add(quiz1);
+        quiz2.setQuestions(questionStorage.getAll());
+        customQuizStorage.add(quiz2);
+
+/*        CustomQuiz customQuiz1 = new CustomQuiz(1, "Eszti");
         CustomQuiz customQuiz2 = new CustomQuiz(2, "Mira");
         CustomQuiz customQuiz3 = new CustomQuiz(3, "Droszi");
         CustomQuiz customQuiz4 = new CustomQuiz(4, "Stofi");
@@ -197,6 +208,6 @@ public class Initializer {
         customQuizStorage.add(customQuiz1);
         customQuizStorage.add(customQuiz2);
         customQuizStorage.add(customQuiz3);
-        customQuizStorage.add(customQuiz4);
+        customQuizStorage.add(customQuiz4);*/
     }
 }
