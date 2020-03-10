@@ -1,32 +1,28 @@
 package com.codecool.codecoolquiz.model;
 
-import java.util.ArrayList;
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
 public class CustomQuiz {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
+
     private String name;
-    private List<Question> questions = new ArrayList<>();
 
-    public CustomQuiz(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public void add(Question question) {
-        questions.add(question);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
+    @Singular
+    @ManyToMany
+    @EqualsAndHashCode.Exclude
+    private List<Question> questions;
 }
