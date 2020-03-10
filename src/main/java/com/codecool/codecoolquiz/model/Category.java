@@ -1,27 +1,27 @@
 package com.codecool.codecoolquiz.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Set;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@JsonIgnoreProperties({"questions"})
 public class Category {
-    private int id;
+
+    @Id
+    @GeneratedValue
+    private Integer id;
+
     private String name;
 
-    public Category(int id, String name) {
-        this.name = name;
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    @Singular
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    private Set<Question> questions;
 }
