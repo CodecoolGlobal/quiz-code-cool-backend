@@ -179,7 +179,8 @@ public class Initializer {
 //        questionStorage.add(question17);
     }
     public void loadInitCustomQuizzes() {
-        CustomQuiz quiz1 = CustomQuiz.builder().id(0).name("Eszti").build();
+
+        CustomQuiz quiz1 = CustomQuiz.builder().name("Eszti").build();
         CustomQuiz quiz2 = CustomQuiz.builder().name("Mira").build();
 
         quiz1.setQuestions(questionStorage.getAll());
