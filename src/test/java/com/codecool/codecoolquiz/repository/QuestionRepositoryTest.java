@@ -39,4 +39,23 @@ class QuestionRepositoryTest {
         List<Question> questions = questionRepository.findAll();
         assertThat(questions).hasSize(1);
     }
+
+    @Test
+    public void testFindAllTypes() {
+        Question question1 = Question.builder()
+                .question("Question1?")
+                .incorrectAnswer("fdf")
+                .correctAnswer("Correct")
+                .type(Type.BOOLEAN)
+                .build();
+        Question question2 = Question.builder()
+                .question("Question2?")
+                .incorrectAnswers(Lists.newArrayList("fddddf", "fdfd", "fdfdf"))
+                .type(Type.MULTIPLE)
+                .build();
+    questionRepository.saveAll(Lists.newArrayList(question1, question2));
+    List<Type> types = questionRepository.findTypes();
+    assertThat(types).containsExactlyInAnyOrder(Type.MULTIPLE, Type.BOOLEAN);
+
+    }
 }
