@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer>, JpaSpecificationExecutor {
 
-    @Query("SELECT distinct q.type from queszion q")
-    List<Type> findAllType();
+    @Query("SELECT distinct q.type from Question q")
+    List<Type> findTypes();
 }

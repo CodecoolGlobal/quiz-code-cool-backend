@@ -25,6 +25,7 @@ public class Initializer {
     @Autowired
     CustomQuizStorage customQuizStorage;
 
+    @PostConstruct
     public void loadInitData() throws Exception {
         loadInitCategories();
         loadInitQuestions();
