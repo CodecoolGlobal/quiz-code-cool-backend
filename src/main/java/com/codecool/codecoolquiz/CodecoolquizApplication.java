@@ -10,16 +10,9 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class CodecoolquizApplication {
 
-    @Autowired
-    Initializer initializer;
 
     public static void main(String[] args) {
         SpringApplication.run(CodecoolquizApplication.class, args);
-    }
-
-    @PostConstruct
-    public void afterInit() throws Exception {
-        initializer.loadInitData();
     }
 
 

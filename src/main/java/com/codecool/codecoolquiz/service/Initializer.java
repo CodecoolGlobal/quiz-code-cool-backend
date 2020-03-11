@@ -7,10 +7,13 @@ import com.codecool.codecoolquiz.service.CategoryStorage;
 import com.codecool.codecoolquiz.service.CustomQuizStorage;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
+@Profile("production")
 @Service
 public class Initializer {
 
@@ -23,6 +26,7 @@ public class Initializer {
     @Autowired
     CustomQuizStorage customQuizStorage;
 
+    @PostConstruct
     public void loadInitData() throws Exception {
         loadInitCategories();
         loadInitQuestions();

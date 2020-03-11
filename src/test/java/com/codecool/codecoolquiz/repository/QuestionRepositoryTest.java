@@ -25,14 +25,7 @@ class QuestionRepositoryTest {
     @Autowired
     QuestionRepository questionRepository;
 
-    @Autowired
-    CategoryStorage categoryStorage;
 
-    @Autowired
-    CustomQuizStorage customQuizStorage;
-
-    @Autowired
-    QuestionStorage questionStorage;
 
     @Test
     public void testAddNewQuestion() {
