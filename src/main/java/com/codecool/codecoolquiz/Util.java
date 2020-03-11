@@ -16,6 +16,10 @@ public class Util {
             return list;
         }
 
+        if (Integer.parseInt(numOfNeededItems) > list.size()) {
+            return null;
+        }
+
         Random rand = new Random();
 
         List<Question> copyList = new ArrayList<>(list);
