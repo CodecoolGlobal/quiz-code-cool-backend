@@ -40,6 +40,11 @@ public class QuestionController {
         return questionStorage.getQuestionById(questionId);
     }
 
+    @PutMapping("/questions/{questionId}")
+    public void validateQuestion(@PathVariable String questionId) throws Exception {
+        questionStorage.validateQuestionById(questionId);
+    }
+
     @PostMapping("questions/add")
     public void saveNewQuestion(@RequestBody Question question) {
         questionStorage.add(question);

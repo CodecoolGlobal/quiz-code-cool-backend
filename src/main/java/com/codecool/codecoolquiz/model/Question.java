@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -31,6 +32,12 @@ public class Question {
     @ElementCollection
     @Singular
     private List<String> incorrectAnswers;
+
+    private LocalDate creationDate;
+
+    private LocalDate validationDate;
+
+    private boolean isValidated;
 
     @Singular
     @ManyToMany

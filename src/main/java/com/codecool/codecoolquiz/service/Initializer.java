@@ -9,6 +9,7 @@ import com.codecool.codecoolquiz.service.QuestionStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @Service
@@ -30,12 +31,14 @@ public class Initializer {
     }
 
     private void loadInitCategories() throws Exception {
-        categoryStorage.add(Category.builder().name("Python").build());
-        categoryStorage.add(Category.builder().name("Java").build());
-        categoryStorage.add(Category.builder().name("CSS").build());
-        categoryStorage.add(Category.builder().name("SQL").build());
-        categoryStorage.add(Category.builder().name("HTML").build());
-        categoryStorage.add(Category.builder().name("General").build());
+        if(categoryStorage.categoryRepository.count() == 0) {
+            categoryStorage.add(Category.builder().name("Python").build());
+            categoryStorage.add(Category.builder().name("Java").build());
+            categoryStorage.add(Category.builder().name("CSS").build());
+            categoryStorage.add(Category.builder().name("SQL").build());
+            categoryStorage.add(Category.builder().name("HTML").build());
+            categoryStorage.add(Category.builder().name("General").build());
+        }
     }
 
     private void loadInitQuestions() throws Exception {
@@ -45,6 +48,9 @@ public class Initializer {
                 .question("Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?")
                 .correctAnswer("Apple")
                 .incorrectAnswers(Arrays.asList("Microsoft", "Atari", "Commodore"))
+                .creationDate(LocalDate.of(2009, 3, 10))
+                .validationDate(null)
+                .isValidated(false)
                 .build();
         Question question2 = Question.builder()
                 .category(categoryStorage.getById(1))
@@ -52,6 +58,9 @@ public class Initializer {
                 .question("In any programming language, what is the most common way to iterate through an array?")
                 .correctAnswer("For loops")
                 .incorrectAnswers(Arrays.asList("If Statements", "Do-while loops", "While loops"))
+                .creationDate(LocalDate.of(2010, 6, 14))
+                .validationDate(null)
+                .isValidated(false)
                 .build();
         Question question3 = Question.builder()
                 .category(categoryStorage.getById(2))
@@ -59,6 +68,9 @@ public class Initializer {
                 .question("Which is a valid keyword in java?")
                 .correctAnswer("interface")
                 .incorrectAnswers(Arrays.asList("string", "Float", "unsigned"))
+                .creationDate(LocalDate.of(2017, 9, 20))
+                .validationDate(null)
+                .isValidated(false)
                 .build();
         Question question4 = Question.builder()
                 .category(categoryStorage.getById(2))
@@ -66,6 +78,9 @@ public class Initializer {
                 .question("Which is the valid declarations within an interface definition?")
                 .correctAnswer("public double methoda();")
                 .incorrectAnswers(Arrays.asList("public final double methoda();", "static void methoda(double d1);", "protected void methoda(double d1);"))
+                .creationDate(LocalDate.of(2019, 11, 12))
+                .validationDate(null)
+                .isValidated(false)
                 .build();
 
 /*
