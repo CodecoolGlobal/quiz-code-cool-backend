@@ -131,4 +131,21 @@ public class AllRepositoryTest {
         });
     }
 
+    @Test
+    public void persistQuestionWithCategory() {
+        Category category = Category.builder()
+                .name("category test")
+                .build();
+
+        Question question = Question.builder()
+                .question("does it persist with category?")
+                .category(category)
+                .build();
+
+        questionRepository.save(question);
+
+        List<Category> categoryList = categoryRepository.findAll();
+        assertThat(categoryList).hasSize(1);
+    }
+
 }
