@@ -10,18 +10,21 @@ import java.util.Random;
 @Component
 public class Util {
 
-    public List<Question> getRandomQuestionsFromList(List<Question> list, int numOfNeededItems) {
+    public List<Question> getRandomQuestionsFromList(List<Question> list, String numOfNeededItems) {
+
+        if (numOfNeededItems == null || list.size() == 0) {
+            return list;
+        }
+
         Random rand = new Random();
 
         List<Question> copyList = new ArrayList<>(list);
         List<Question> newList = new ArrayList<>();
 
-        for (int i = 0; i < numOfNeededItems; i++) {
+        for (int i = 0; i < Integer.parseInt(numOfNeededItems); i++) {
 
             int randomIndex = rand.nextInt(copyList.size());
-
             newList.add(copyList.get(randomIndex));
-
             copyList.remove(randomIndex);
         }
         return newList;

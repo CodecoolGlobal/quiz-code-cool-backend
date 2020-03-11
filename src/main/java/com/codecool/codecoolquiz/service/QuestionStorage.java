@@ -1,64 +1,38 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.Util;
-import com.codecool.codecoolquiz.model.FilterCriteria;
 import com.codecool.codecoolquiz.model.Question;
-import org.javatuples.Pair;
+import com.codecool.codecoolquiz.repository.QuestionRepository;
+import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
-public class QuestionStorage {
+public class QuestionStorage extends SpecificationArgumentResolver {
 
     @Autowired
-    Util util;
+    QuestionRepository questionRepository;
 
-    private List<Question> questions = new ArrayList<>();
+    @Autowired
+    CategoryStorage categoryStorage;
 
     public List<Question> getAll() {
-        return questions;
+        return questionRepository.findAll();
     }
 
     public void add(Question question) {
-        questions.add(question);
+        questionRepository.save(question);
     }
 
-    @Override
-    public String toString() {
-        return "QuestionStorage{" +
-                "questions=" + questions +
-                '}';
+    public Optional<Question> getQuestionById(String questionId) {
+        return questionRepository.findById(Integer.parseInt(questionId));
     }
 
-    public Question getQuestionById(String questionId) throws Exception {
-        return questions.stream()
-                .filter(question -> question.getId() == Integer.parseInt(questionId))
-                .findFirst()
-                .orElseThrow(() -> new Exception("Question not found"));
-    }
-
-    public List<Question> getFilteredQuestions(String category, String type, String amount) {
-
-        //List<Pair<String, String>> filters = filterCriteria.getFilters();
-
-        List<Question> resultList = getAll()
-                .stream()
-                .filter(question -> category == null || question.getCategory().getId() == Integer.parseInt(category))
-                .filter(question -> type == null || question.getType().equals(type))
-                .collect(Collectors.toList());
-
-        if (amount == null) {
-            return resultList;
-        }
-
-        if (resultList.size() < Integer.parseInt(amount)) {
-            return null;
-        } else {
-            return util.getRandomQuestionsFromList(resultList, Integer.parseInt(amount));
-        }
+    public List<Question> findAll(Specification<Question> customerSpec) {
+        return questionRepository.findAll(customerSpec);
     }
 }

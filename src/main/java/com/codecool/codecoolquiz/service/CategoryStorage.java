@@ -1,27 +1,28 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.model.Category;
+import com.codecool.codecoolquiz.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CategoryStorage {
 
-    private List<Category> categories = new ArrayList<>();
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public List<Category> getAll() {
-        return categories;
+        return categoryRepository.findAll();
     }
 
     public void add(Category category) {
-        categories.add(category);
+        categoryRepository.save(category);
     }
 
-    public Category getById(int id) throws Exception {
-        return categories.stream().filter(category -> category.getId() == id).findFirst()
-                .orElseThrow(() -> new Exception("No Category found"));
+    public Category getById(int id) {
+        return categoryRepository.getOne(id);
     }
 }
 
