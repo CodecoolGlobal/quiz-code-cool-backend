@@ -3,6 +3,7 @@ package com.codecool.codecoolquiz.service;
 import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
+import com.codecool.codecoolquiz.model.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,6 @@ public class Initializer {
     @Autowired
     CustomQuizStorage customQuizStorage;
 
-    @PostConstruct
     public void loadInitData() throws Exception {
         loadInitCategories();
         loadInitQuestions();
@@ -40,13 +40,12 @@ public class Initializer {
             categoryStorage.add(Category.builder().name("HTML").build());
             categoryStorage.add(Category.builder().name("General").build());
         }
-
     }
 
     private void loadInitQuestions() throws Exception {
         Question question1 = Question.builder()
                 .category(categoryStorage.getById(1))
-                .type("multiple")
+                .type(Type.MULTIPLE)
                 .question("Which company was established on April 1st, 1976 by Steve Jobs, Steve Wozniak and Ronald Wayne?")
                 .correctAnswer("Apple")
                 .incorrectAnswers(Arrays.asList("Microsoft", "Atari", "Commodore"))
@@ -56,7 +55,7 @@ public class Initializer {
                 .build();
         Question question2 = Question.builder()
                 .category(categoryStorage.getById(1))
-                .type("multiple")
+                .type(Type.MULTIPLE)
                 .question("In any programming language, what is the most common way to iterate through an array?")
                 .correctAnswer("For loops")
                 .incorrectAnswers(Arrays.asList("If Statements", "Do-while loops", "While loops"))
@@ -66,7 +65,7 @@ public class Initializer {
                 .build();
         Question question3 = Question.builder()
                 .category(categoryStorage.getById(2))
-                .type("multiple")
+                .type(Type.MULTIPLE)
                 .question("Which is a valid keyword in java?")
                 .correctAnswer("interface")
                 .incorrectAnswers(Arrays.asList("string", "Float", "unsigned"))
@@ -76,7 +75,7 @@ public class Initializer {
                 .build();
         Question question4 = Question.builder()
                 .category(categoryStorage.getById(2))
-                .type("multiple")
+                .type(Type.MULTIPLE)
                 .question("Which is the valid declarations within an interface definition?")
                 .correctAnswer("public double methoda();")
                 .incorrectAnswers(Arrays.asList("public final double methoda();", "static void methoda(double d1);", "protected void methoda(double d1);"))
@@ -177,13 +176,10 @@ public class Initializer {
                 "<ol>",
                 Arrays.asList("<ul>", "<dl>", "<list>")
         );*/
-        if (questionStorage.questionRepository.count() == 0) {
-            questionStorage.add(question1);
-            questionStorage.add(question2);
-            questionStorage.add(question3);
-            questionStorage.add(question4);
-        }
-
+        questionStorage.add(question1);
+        questionStorage.add(question2);
+        questionStorage.add(question3);
+        questionStorage.add(question4);
 //        questionStorage.add(question5);
 //        questionStorage.add(question6);
 //        questionStorage.add(question7);

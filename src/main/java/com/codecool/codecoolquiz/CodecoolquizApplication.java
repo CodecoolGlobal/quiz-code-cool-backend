@@ -3,7 +3,6 @@ package com.codecool.codecoolquiz;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class CodecoolquizApplication {
@@ -11,5 +10,6 @@ public class CodecoolquizApplication {
     public static void main(String[] args) {
         SpringApplication.run(CodecoolquizApplication.class, args);
     }
+
 
 }
