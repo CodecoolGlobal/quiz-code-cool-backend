@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +35,12 @@ public class QuestionStorage extends SpecificationArgumentResolver {
 
     public List<Question> findAll(Specification<Question> customerSpec) {
         return questionRepository.findAll(customerSpec);
+    }
+
+    public void validateQuestionById(String questionId) throws Exception {
+        Question questionToValidate = questionRepository.findById(Integer.parseInt(questionId)).orElseThrow(Exception::new);
+        questionToValidate.setValidated(true);
+        questionToValidate.setValidationDate(LocalDate.now());
+        questionRepository.save(questionToValidate);
     }
 }
