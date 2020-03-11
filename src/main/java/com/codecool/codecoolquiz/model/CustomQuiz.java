@@ -2,10 +2,7 @@ package com.codecool.codecoolquiz.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -19,6 +16,7 @@ public class CustomQuiz {
     @GeneratedValue
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Singular

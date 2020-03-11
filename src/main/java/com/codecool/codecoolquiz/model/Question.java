@@ -24,6 +24,7 @@ public class Question {
 
     private String type;
 
+    @Column( nullable = false, unique = true )
     private String question;
 
     private String correctAnswer;
