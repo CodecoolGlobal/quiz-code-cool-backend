@@ -3,9 +3,6 @@ package com.codecool.codecoolquiz.service;
 import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
-import com.codecool.codecoolquiz.service.CategoryStorage;
-import com.codecool.codecoolquiz.service.CustomQuizStorage;
-import com.codecool.codecoolquiz.service.QuestionStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -35,12 +32,15 @@ public class Initializer {
     }
 
     private void loadInitCategories() throws Exception {
-        categoryStorage.add(Category.builder().name("Python").build());
-        categoryStorage.add(Category.builder().name("Java").build());
-        categoryStorage.add(Category.builder().name("CSS").build());
-        categoryStorage.add(Category.builder().name("SQL").build());
-        categoryStorage.add(Category.builder().name("HTML").build());
-        categoryStorage.add(Category.builder().name("General").build());
+        if (categoryStorage.categoryRepository.count() == 0) {
+            categoryStorage.add(Category.builder().name("Python").build());
+            categoryStorage.add(Category.builder().name("Java").build());
+            categoryStorage.add(Category.builder().name("CSS").build());
+            categoryStorage.add(Category.builder().name("SQL").build());
+            categoryStorage.add(Category.builder().name("HTML").build());
+            categoryStorage.add(Category.builder().name("General").build());
+        }
+
     }
 
     private void loadInitQuestions() throws Exception {
@@ -177,10 +177,13 @@ public class Initializer {
                 "<ol>",
                 Arrays.asList("<ul>", "<dl>", "<list>")
         );*/
-        questionStorage.add(question1);
-        questionStorage.add(question2);
-        questionStorage.add(question3);
-        questionStorage.add(question4);
+        if (questionStorage.questionRepository.count() == 0) {
+            questionStorage.add(question1);
+            questionStorage.add(question2);
+            questionStorage.add(question3);
+            questionStorage.add(question4);
+        }
+
 //        questionStorage.add(question5);
 //        questionStorage.add(question6);
 //        questionStorage.add(question7);
@@ -195,14 +198,17 @@ public class Initializer {
 //        questionStorage.add(question16);
 //        questionStorage.add(question17);
     }
-    public void loadInitCustomQuizzes() {
-        CustomQuiz quiz1 = CustomQuiz.builder().id(0).name("Eszti").build();
+
+    private void loadInitCustomQuizzes() {
+        CustomQuiz quiz1 = CustomQuiz.builder().name("Eszti").build();
         CustomQuiz quiz2 = CustomQuiz.builder().name("Mira").build();
 
         quiz1.setQuestions(questionStorage.getAll());
-        customQuizStorage.add(quiz1);
         quiz2.setQuestions(questionStorage.getAll());
-        customQuizStorage.add(quiz2);
+        if (customQuizStorage.customQuizRepository.count() == 0) {
+            customQuizStorage.add(quiz1);
+            customQuizStorage.add(quiz2);
+        }
 
 /*        CustomQuiz customQuiz1 = new CustomQuiz(1, "Eszti");
         CustomQuiz customQuiz2 = new CustomQuiz(2, "Mira");
