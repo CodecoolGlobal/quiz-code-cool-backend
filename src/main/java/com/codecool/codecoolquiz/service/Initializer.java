@@ -7,12 +7,15 @@ import com.codecool.codecoolquiz.service.CategoryStorage;
 import com.codecool.codecoolquiz.service.CustomQuizStorage;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 
 @Service
+@Profile("production")
 public class Initializer {
 
     @Autowired
@@ -24,6 +27,7 @@ public class Initializer {
     @Autowired
     CustomQuizStorage customQuizStorage;
 
+    @PostConstruct
     public void loadInitData() throws Exception {
         loadInitCategories();
         loadInitQuestions();
@@ -31,14 +35,12 @@ public class Initializer {
     }
 
     private void loadInitCategories() throws Exception {
-        if(categoryStorage.categoryRepository.count() == 0) {
-            categoryStorage.add(Category.builder().name("Python").build());
-            categoryStorage.add(Category.builder().name("Java").build());
-            categoryStorage.add(Category.builder().name("CSS").build());
-            categoryStorage.add(Category.builder().name("SQL").build());
-            categoryStorage.add(Category.builder().name("HTML").build());
-            categoryStorage.add(Category.builder().name("General").build());
-        }
+        categoryStorage.add(Category.builder().name("Python").build());
+        categoryStorage.add(Category.builder().name("Java").build());
+        categoryStorage.add(Category.builder().name("CSS").build());
+        categoryStorage.add(Category.builder().name("SQL").build());
+        categoryStorage.add(Category.builder().name("HTML").build());
+        categoryStorage.add(Category.builder().name("General").build());
     }
 
     private void loadInitQuestions() throws Exception {
