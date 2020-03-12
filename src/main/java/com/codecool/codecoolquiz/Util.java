@@ -12,12 +12,15 @@ public class Util {
 
     public List<Question> getRandomQuestionsFromList(List<Question> list, String numOfNeededItems) {
 
-        if (numOfNeededItems == null ||
-            list.size() == 0 ||
+        if (numOfNeededItems == null) {
+            return list;
+        }
+        if (list.size() == 0 ||
             Integer.parseInt(numOfNeededItems) == 0 ||
             Integer.parseInt(numOfNeededItems) > list.size()) {
             return null;
         }
+
 
         Random rand = new Random();
 
