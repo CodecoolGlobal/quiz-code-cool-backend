@@ -12,11 +12,10 @@ public class Util {
 
     public List<Question> getRandomQuestionsFromList(List<Question> list, String numOfNeededItems) {
 
-        if (numOfNeededItems == null || list.size() == 0) {
-            return list;
-        }
-
-        if (Integer.parseInt(numOfNeededItems) > list.size()) {
+        if (numOfNeededItems == null ||
+            list.size() == 0 ||
+            Integer.parseInt(numOfNeededItems) == 0 ||
+            Integer.parseInt(numOfNeededItems) > list.size()) {
             return null;
         }
 
