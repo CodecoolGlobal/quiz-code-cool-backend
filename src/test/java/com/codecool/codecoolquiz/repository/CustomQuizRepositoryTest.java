@@ -26,7 +26,6 @@ class CustomQuizRepositoryTest {
     @Test
     public void testAddNewCustomQuiz() {
         CustomQuiz customQuiz = CustomQuiz.builder()
-                .id(1)
                 .name("CustomQuiz1")
                 .build();
 
@@ -38,27 +37,23 @@ class CustomQuizRepositoryTest {
     @Test
     public void customQuizHasQuestions() {
         CustomQuiz customQuiz = CustomQuiz.builder()
-                .id(1)
                 .name("CustomQuiz1")
                 .question(Question.builder().question("Question1").build())
                 .question(Question.builder().question("Question2").build())
                 .build();
         customQuizRepository.save(customQuiz);
-        assertThat(customQuizRepository.getOne(1).getQuestions().size() == 2);
+        assertThat(customQuizRepository.getOne(customQuiz.getId()).getQuestions().size() == 2);
     }
 
     @Test
     public void findAllCustomQuizzes() {
         CustomQuiz customQuiz = CustomQuiz.builder()
-                .id(1)
                 .name("CustomQuiz1")
                 .build();
         CustomQuiz customQuiz2 = CustomQuiz.builder()
-                .id(2)
                 .name("CustomQuiz2")
                 .build();
         CustomQuiz customQuiz3 = CustomQuiz.builder()
-                .id(3)
                 .name("CustomQuiz3")
                 .build();
         customQuizRepository.saveAll(Lists.newArrayList(customQuiz, customQuiz2, customQuiz3));
@@ -69,11 +64,10 @@ class CustomQuizRepositoryTest {
     @Test
     public void getOneCustomQuizById() {
         CustomQuiz customQuiz = CustomQuiz.builder()
-                .id(1)
                 .name("CustomQuiz1")
                 .build();
         customQuizRepository.save(customQuiz);
-        assertThat(customQuizRepository.getOne(1).equals(customQuiz));
+        assertThat(customQuizRepository.getOne(customQuiz.getId()).equals(customQuiz));
     }
 
 

@@ -52,10 +52,9 @@ class CategoryRepositoryTest {
     @Test
     public void getOneCategoryById() {
         Category category1 = Category.builder()
-                .id(1)
                 .name("Java")
                 .build();
         categoryRepository.save(category1);
-        assertThat(categoryRepository.getOne(1).equals(category1));
+        assertThat(categoryRepository.getOne(category1.getId()).equals(category1));
     }
 }
