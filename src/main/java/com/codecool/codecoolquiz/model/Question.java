@@ -23,7 +23,8 @@ public class Question {
     @EqualsAndHashCode.Exclude
     private Category category;
 
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column( nullable = false, unique = true )
     private String question;

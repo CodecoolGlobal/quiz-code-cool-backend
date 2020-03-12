@@ -27,7 +27,8 @@ public class QuestionController {
     public List<Question> findQuestions(
             @And({
                     @Spec(path = "category.id", params = "category", spec = Equal.class),
-                    @Spec(path = "type", spec = Equal.class)
+                    @Spec(path = "type", spec = Equal.class),
+                    @Spec(path = "isValidated", params = "validated", spec = Equal.class)
             }) Specification<Question> customerSpec,
             String amount) {
 
