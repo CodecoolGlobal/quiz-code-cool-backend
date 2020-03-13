@@ -177,23 +177,25 @@ public class Initializer {
                 "<ol>",
                 Arrays.asList("<ul>", "<dl>", "<list>")
         );*/
-        questionStorage.add(question1);
-        questionStorage.add(question2);
-        questionStorage.add(question3);
-        questionStorage.add(question4);
-//        questionStorage.add(question5);
-//        questionStorage.add(question6);
-//        questionStorage.add(question7);
-//        questionStorage.add(question8);
-//        questionStorage.add(question9);
-//        questionStorage.add(question10);
-//        questionStorage.add(question11);
-//        questionStorage.add(question12);
-//        questionStorage.add(question13);
-//        questionStorage.add(question14);
-//        questionStorage.add(question15);
-//        questionStorage.add(question16);
-//        questionStorage.add(question17);
+        if (questionStorage.questionRepository.count() == 0) {
+            questionStorage.add(question1);
+            questionStorage.add(question2);
+            questionStorage.add(question3);
+            questionStorage.add(question4);
+//            questionStorage.add(question5);
+//            questionStorage.add(question6);
+//            questionStorage.add(question7);
+//            questionStorage.add(question8);
+//            questionStorage.add(question9);
+//            questionStorage.add(question10);
+//            questionStorage.add(question11);
+//            questionStorage.add(question12);
+//            questionStorage.add(question13);
+//            questionStorage.add(question14);
+//            questionStorage.add(question15);
+//            questionStorage.add(question16);
+//            questionStorage.add(question17);
+       }
     }
 
     private void loadInitCustomQuizzes() {
