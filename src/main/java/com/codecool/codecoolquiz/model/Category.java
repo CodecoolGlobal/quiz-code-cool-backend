@@ -18,10 +18,11 @@ public class Category {
     @GeneratedValue
     private Integer id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Singular
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Set<Question> questions;
 }

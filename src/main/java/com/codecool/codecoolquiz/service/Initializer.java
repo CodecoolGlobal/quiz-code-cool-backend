@@ -47,8 +47,7 @@ public class Initializer {
         categoryStorage.add(Category.builder().name("General").build());
     }
 
-
-    private void loadInitQuestions() {
+    private void loadInitQuestions() throws Exception {
         Question question1 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)

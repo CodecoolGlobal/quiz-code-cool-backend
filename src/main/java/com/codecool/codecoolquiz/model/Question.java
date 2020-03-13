@@ -26,6 +26,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private Type type;
 
+    @Column( nullable = false, unique = true )
     private String question;
 
     private String correctAnswer;
