@@ -26,7 +26,6 @@ public class QuestionStorage extends SpecificationArgumentResolver {
     }
 
     public void add(Question question) {
-        question.setValidated(false);
         question.setCreationDate(LocalDate.now());
         questionRepository.save(question);
     }
