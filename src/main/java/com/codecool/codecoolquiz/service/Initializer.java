@@ -51,7 +51,7 @@ public class Initializer {
     private void loadUsers() {
         appUserStorage.add(
                 AppUser.builder()
-                        .name("admin")
+                        .username("admin")
                         .password(encoder.encode("password"))
                         .role("USER")
                         .role("ADMIN")
@@ -62,7 +62,7 @@ public class Initializer {
 
         appUserStorage.add(
                 AppUser.builder()
-                        .name("user")
+                        .username("user")
                         .password(encoder.encode("password"))
                         .role("USER")
                         .email("user@codecool.com")
