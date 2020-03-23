@@ -9,22 +9,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/customquizzes")
 public class CustomQuizController {
 
     @Autowired
     CustomQuizStorage customQuizStorage;
 
-    @GetMapping("/customquizzes/{id}")
+    @GetMapping("/{id}")
     public List<Question> getQuestionsForCustomQuiz(@PathVariable int id) {
         return customQuizStorage.getQuestionsForCustomQuizById(id);
     }
 
-    @GetMapping("/customquizzes")
+    @GetMapping("")
     public List<CustomQuiz> getCustomQuizzes() {
         return customQuizStorage.getAll();
     }
 
-    @PostMapping("customquizzes")
+    @PostMapping("")
     public void saveNewQuiz(@RequestBody CustomQuiz customQuiz) {
         customQuizStorage.add(customQuiz);
     }
