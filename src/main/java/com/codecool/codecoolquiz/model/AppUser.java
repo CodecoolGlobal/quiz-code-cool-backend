@@ -20,7 +20,7 @@ public class AppUser {
     @GeneratedValue
     private Integer id;
 
-    private String name;
+    private String username;
 
     private String password;
 
