@@ -30,8 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/sign-in").permitAll() // allowed by anyone
-                .antMatchers("/sign-up").permitAll() // allowed by anyone
+                .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers("/categories/**").authenticated() // allowed only when signed in
                 .antMatchers("/customquizzes/**").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.GET,"/questions/**").authenticated() // allowed only when signed in

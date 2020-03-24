@@ -1,8 +1,11 @@
 package com.codecool.codecoolquiz.controller;
 
+import com.codecool.codecoolquiz.model.SignUpResponse;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.repository.AppUserRepository;
 import com.codecool.codecoolquiz.security.JwtTokenServices;
+import com.codecool.codecoolquiz.service.AppUserStorage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,15 +21,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-    private final JwtTokenServices jwtTokenServices;
+    @Autowired
+    JwtTokenServices jwtTokenServices;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, AppUserRepository users) {
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenServices = jwtTokenServices;
+    @Autowired
+    AppUserStorage appUserStorage;
+
+    @PostMapping("/sign-up")
+    public SignUpResponse signup(@RequestBody UserCredentials userCredentials) {
+        return appUserStorage.signUp(userCredentials);
     }
 
     @PostMapping("/sign-in")

@@ -6,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class UserCredentials {
-    private String username;
-    private String password;
-    private String email;
+@NoArgsConstructor
+@Builder
+public class SignUpResponse {
+    boolean successful;
+    String responseMessage;
 }
