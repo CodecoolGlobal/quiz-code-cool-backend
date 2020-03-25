@@ -24,9 +24,10 @@ public class AppUserStorage {
         appUserRepository.save(appUser);
     }
 
+    String unsuccessfulMessage = "Registration cannot be completed.\n%s is already taken.";
     public AppUser getByName(String name) {
         return appUserRepository.findByUsername(name)
-                .orElseThrow(() -> new UsernameNotFoundException("Username: " + name + " not found"));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(unsuccessfulMessage, "Username")));
     }
 
     public SignUpResponse signUp(UserCredentials userCredentials) {
@@ -35,7 +36,7 @@ public class AppUserStorage {
         SignUpResponse signUpResponse = new SignUpResponse();
         if (appUserRepository.findByUsername(username).isPresent()) {
             signUpResponse.setSuccessful(false);
-            signUpResponse.setResponseMessage("Username is already taken.");
+            signUpResponse.setResponseMessage(String.format(unsuccessfulMessage, "Email"));
             return signUpResponse;
         }
         if (appUserRepository.findByEmail(email).isPresent()) {
@@ -53,7 +54,7 @@ public class AppUserStorage {
                 .build()
         );
         signUpResponse.setSuccessful(true);
-        signUpResponse.setResponseMessage("Successful registration");
+        signUpResponse.setResponseMessage("Successful registration!");
         return signUpResponse;
     }
 
