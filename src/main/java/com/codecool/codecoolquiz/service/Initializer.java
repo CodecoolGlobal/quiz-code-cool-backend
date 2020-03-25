@@ -1,11 +1,11 @@
 package com.codecool.codecoolquiz.service;
 
-import com.codecool.codecoolquiz.model.Category;
-import com.codecool.codecoolquiz.model.CustomQuiz;
-import com.codecool.codecoolquiz.model.Question;
-import com.codecool.codecoolquiz.model.Type;
+import com.codecool.codecoolquiz.model.*;
+import com.codecool.codecoolquiz.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,6 +15,12 @@ import java.util.Arrays;
 @Service
 @Profile("production")
 public class Initializer {
+
+    @Autowired
+    private AppUserStorage appUserStorage;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Autowired
     CategoryStorage categoryStorage;
@@ -36,6 +42,33 @@ public class Initializer {
         if (customQuizStorage.customQuizRepository.count() == 0) {
             loadInitCustomQuizzes();
         }
+
+        if (appUserStorage.appUserRepository.count() == 0) {
+            loadUsers();
+        }
+    }
+
+    private void loadUsers() {
+        appUserStorage.add(
+                AppUser.builder()
+                        .username("admin")
+                        .password(encoder.encode("password"))
+                        .role("USER")
+                        .role("ADMIN")
+                        .email("admin@codecool.com")
+                        .registrationDate(LocalDate.now())
+                        .build()
+        );
+
+        appUserStorage.add(
+                AppUser.builder()
+                        .username("user")
+                        .password(encoder.encode("password"))
+                        .role("USER")
+                        .email("user@codecool.com")
+                        .registrationDate(LocalDate.now())
+                        .build()
+        );
     }
 
     private void loadInitCategories() {

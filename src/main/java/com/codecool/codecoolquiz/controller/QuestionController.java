@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/questions")
 public class QuestionController {
 
     @Autowired
@@ -23,7 +24,7 @@ public class QuestionController {
     @Autowired
     Util util;
 
-    @GetMapping("/questions")
+    @GetMapping("")
     public List<Question> findQuestions(
             @And({
                     @Spec(path = "category.id", params = "category", spec = Equal.class),
@@ -36,17 +37,17 @@ public class QuestionController {
         return util.getRandomQuestionsFromList(filteredQuestions, amount);
     }
 
-    @GetMapping("/questions/{questionId}")
+    @GetMapping("/{questionId}")
     public Optional<Question> getQuestion(@PathVariable String questionId) {
         return questionStorage.getQuestionById(questionId);
     }
 
-    @PutMapping("/questions/{questionId}")
+    @PutMapping("/{questionId}")
     public void validateQuestion(@PathVariable String questionId) throws Exception {
         questionStorage.validateQuestionById(questionId);
     }
 
-    @PostMapping("questions/add")
+    @PostMapping("add")
     public void saveNewQuestion(@RequestBody Question question) {
         questionStorage.add(question);
     }
