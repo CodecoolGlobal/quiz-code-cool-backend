@@ -38,14 +38,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.GET, "/categories").authenticated() // allowed only when signed in
                 .antMatchers("/customquizzes/**").authenticated() // allowed only when signed in
-                .antMatchers(HttpMethod.GET,"/questions/**").authenticated() // allowed only when signed in
-                .antMatchers(HttpMethod.POST,"/questions/**").authenticated() // allowed only when signed in
-                .antMatchers(HttpMethod.PUT,"/questions/**").hasRole("ADMIN") // allowed only when signed in
+                .antMatchers(HttpMethod.GET, "/questions/**").authenticated() // allowed only when signed in
+                .antMatchers(HttpMethod.POST, "/questions/add").authenticated() // allowed only when signed in
+                .antMatchers(HttpMethod.PUT, "/questions/**").hasRole("ADMIN") // allowed only when signed in
                 .antMatchers("/types/**").authenticated() // allowed only when signed in
                 .anyRequest().denyAll() // anything else is denied
-            // NEW PART:
-            .and()
-            .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
+                // NEW PART:
+                .and()
+                .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class)
+                .cors();
     }
 
 //    @Bean
