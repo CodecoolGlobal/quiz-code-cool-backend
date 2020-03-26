@@ -57,7 +57,7 @@ public class AuthController {
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
-            String token = jwtTokenServices.createToken(username, roles);
+            String token = jwtTokenServices.generateToken(authentication);
             addTokenToCookie(response, token);
             SignInResponseBody signInBody = new SignInResponseBody(username, roles);
             return ResponseEntity.ok().body(signInBody);
