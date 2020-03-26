@@ -13,6 +13,5 @@ import java.util.List;
 @Builder
 public class SignInResponseBody {
     private String username;
-    private String token;
     private List<String> roles;
 }

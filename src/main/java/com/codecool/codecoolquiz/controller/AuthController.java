@@ -8,6 +8,7 @@ import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.security.JwtTokenServices;
 import com.codecool.codecoolquiz.service.AppUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +48,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity signIn(@RequestBody UserCredentials data) {
+    public ResponseEntity signIn(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             String username = data.getUsername();
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
@@ -54,13 +57,24 @@ public class AuthController {
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
-
             String token = jwtTokenServices.createToken(username, roles);
-
-            SignInResponseBody signInBody = new SignInResponseBody(username, token, roles);
+            addTokenToCookie(response, token);
+            SignInResponseBody signInBody = new SignInResponseBody(username, roles);
             return ResponseEntity.ok().body(signInBody);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(403).build();
         }
+    }
+
+    private void addTokenToCookie(HttpServletResponse response, String token) {
+        ResponseCookie cookie = ResponseCookie.from("token", token)
+                .domain("localhost") // should be parameterized
+                .sameSite("Strict")  // CSRF
+//                .secure(true)
+                .maxAge(Duration.ofHours(10))
+                .httpOnly(true)      // XSS
+                .path("/")
+                .build();
+        response.addHeader("Set-Cookie", cookie.toString());
     }
 }
