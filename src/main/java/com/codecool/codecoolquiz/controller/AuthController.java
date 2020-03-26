@@ -1,8 +1,10 @@
 package com.codecool.codecoolquiz.controller;
 
 import com.codecool.codecoolquiz.model.SignInResponseBody;
-import com.codecool.codecoolquiz.model.SignUpResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
+import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
+import com.codecool.codecoolquiz.model.exception.SignUpException;
+import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.security.JwtTokenServices;
 import com.codecool.codecoolquiz.service.AppUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +34,14 @@ public class AuthController {
 
     @PostMapping("/sign-up")
     public ResponseEntity signUp(@RequestBody UserCredentials userCredentials) {
-        SignUpResponseBody signUpResponseBody = appUserStorage.signUp(userCredentials);
-        return ResponseEntity.ok().body(signUpResponseBody);
+        try {
+            appUserStorage.signUp(userCredentials);
+            return ResponseEntity.ok().body(userCredentials.getUsername());
+        } catch (EmailAlreadyExistException e) {
+            return ResponseEntity.status(409).body(SignUpException.EMAIL);
+        } catch (UsernameAlreadyExistException e) {
+            return ResponseEntity.status(409).body(SignUpException.USERNAME);
+        }
     }
 
     @PostMapping("/sign-in")
