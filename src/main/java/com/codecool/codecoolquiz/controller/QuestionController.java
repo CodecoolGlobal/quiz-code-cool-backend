@@ -47,7 +47,7 @@ public class QuestionController {
         questionStorage.validateQuestionById(questionId);
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public void saveNewQuestion(@RequestBody Question question) {
         questionStorage.add(question);
     }
