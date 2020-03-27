@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SignUpResponse {
-    boolean successful;
-    String responseMessage;
+public class SignInResponseBody {
+    private String username;
+    private List<String> roles;
 }
