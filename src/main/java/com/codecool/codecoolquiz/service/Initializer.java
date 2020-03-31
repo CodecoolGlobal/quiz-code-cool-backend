@@ -1,10 +1,8 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.model.*;
-import com.codecool.codecoolquiz.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +35,7 @@ public class Initializer {
             loadInitCategories();
         }
         if (questionStorage.questionRepository.count() == 0) {
-            loadInitQuestions();
+            loadProgBasicsQuestions();
         }
         if (customQuizStorage.customQuizRepository.count() == 0) {
             loadInitCustomQuizzes();
@@ -80,7 +78,85 @@ public class Initializer {
         categoryStorage.add(Category.builder().name("General").build());
     }
 
-    private void loadInitQuestions() throws Exception {
+    private void loadProgBasicsQuestions() {
+        CustomQuiz progbasics = CustomQuiz.builder()
+                .name("ProgBasics module")
+                .question(Question.builder()
+                        .category(categoryStorage.getById(6))
+                        .type(Type.MULTIPLE)
+                        .question("Which is not a command line command?")
+                        .correctAnswer("body")
+                        .incorrectAnswers(Arrays.asList("head", "more", "tail"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .question(Question.builder()
+                        .category(categoryStorage.getById(6))
+                        .type(Type.BOOLEAN)
+                        .question("In Linux a shell is a program which protects the system from hacker attacks.")
+                        .correctAnswer("false")
+                        .incorrectAnswers(Arrays.asList("true"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .question(Question.builder()
+                        .category(categoryStorage.getById(6))
+                        .type(Type.BOOLEAN)
+                        .question("Finally statement will be executed when all the error where caught and handled.")
+                        .correctAnswer("false")
+                        .incorrectAnswers(Arrays.asList("true"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .question(Question.builder()
+                        .category(categoryStorage.getById(6))
+                        .type(Type.BOOLEAN)
+                        .question("A remote repository is a common repository that all team members use to exchange their changes.")
+                        .correctAnswer("true")
+                        .incorrectAnswers(Arrays.asList("false"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .question(Question.builder()
+                        .category(categoryStorage.getById(6))
+                        .type(Type.MULTIPLE)
+                        .question("Which is not a git command?")
+                        .correctAnswer("delete")
+                        .incorrectAnswers(Arrays.asList("init", "reset", "revert"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .question(Question.builder()
+                        .category(categoryStorage.getById(1))
+                        .type(Type.BOOLEAN)
+                        .question("The order of the function definitions matters in Python.")
+                        .correctAnswer("false")
+                        .incorrectAnswers(Arrays.asList("true"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .question(Question.builder()
+                        .category(categoryStorage.getById(1))
+                        .type(Type.BOOLEAN)
+                        .question("The sort() method returns a new list.")
+                        .correctAnswer("false")
+                        .incorrectAnswers(Arrays.asList("true"))
+                        .creationDate(LocalDate.now())
+                        .validationDate(null)
+                        .isValidated(false)
+                        .build())
+                .build();
+
+        customQuizStorage.add(progbasics);
+    }
+
+    private void loadInitQuestions() {
         Question question1 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
@@ -285,6 +361,5 @@ public class Initializer {
         customQuizStorage.add(quiz2);
         customQuizStorage.add(quiz3);
         customQuizStorage.add(quiz4);
-
     }
 }
