@@ -27,8 +27,8 @@ public class JwtTokenServices {
         secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 36000000; // 10h
+    @Value("${jwt.expiration.minutes:60}")
+    private long jwtExpirationMinutes;
 
     private final String rolesFieldName = "roles";
 
@@ -43,7 +43,7 @@ public class JwtTokenServices {
                 .setSubject(authentication.getName())
                 .claim("roles", roles)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + validityInMilliseconds))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * jwtExpirationMinutes))
                 .signWith(secretKey)
                 .compact();
     }
