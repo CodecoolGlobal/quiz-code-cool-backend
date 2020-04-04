@@ -233,7 +233,7 @@ public class Initializer {
                 .question(Question.builder()
                         .category(categoryStorage.getById(6))
                         .type(Type.BOOLEAN)
-                        .question("Agile software development uses iterative development as a basis,")
+                        .question("Agile software development uses iterative development as a basis.")
                         .correctAnswer("true")
                         .incorrectAnswers(Arrays.asList("false"))
                         .creationDate(LocalDate.of(2020, 1, 15))
