@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/questions/**").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.POST, "/questions/add").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.PUT, "/questions/**").hasRole("ADMIN") // allowed only when signed in
+                .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("ADMIN") // allowed only when signed in
                 .antMatchers("/types/**").authenticated() // allowed only when signed in
                 .anyRequest().denyAll() // anything else is denied
                 // NEW PART:

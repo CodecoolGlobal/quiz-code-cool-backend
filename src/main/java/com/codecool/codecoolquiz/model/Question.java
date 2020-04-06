@@ -46,4 +46,13 @@ public class Question {
     @EqualsAndHashCode.Exclude
     private List<CustomQuiz> quizzes;
 
+    @Override
+    public String toString() {
+        return
+            "{" +
+                "id=" + this.id + ", " +
+                "question=" + this.question + "," +
+                "creationDate=" + this.creationDate +
+            "}";
+    }
 }
