@@ -8,6 +8,7 @@ import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.security.JwtTokenServices;
 import com.codecool.codecoolquiz.service.AppUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +26,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    @Value("${jwt.expiration.minutes:60}")
+    private long cookieMaxAgeMinutes;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -71,7 +75,7 @@ public class AuthController {
                 .domain("localhost") // should be parameterized
                 .sameSite("Strict")  // CSRF
 //                .secure(true)
-                .maxAge(Duration.ofHours(10))
+                .maxAge(Duration.ofHours(cookieMaxAgeMinutes / 60))
                 .httpOnly(true)      // XSS
                 .path("/")
                 .build();
