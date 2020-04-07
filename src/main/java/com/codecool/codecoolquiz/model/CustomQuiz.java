@@ -20,7 +20,7 @@ public class CustomQuiz {
     private String name;
 
     @Singular
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
     private List<Question> questions;
 }

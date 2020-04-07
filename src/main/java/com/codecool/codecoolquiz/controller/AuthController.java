@@ -3,11 +3,13 @@ package com.codecool.codecoolquiz.controller;
 import com.codecool.codecoolquiz.model.SignInResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
+import com.codecool.codecoolquiz.model.exception.SignOutException;
 import com.codecool.codecoolquiz.model.exception.SignUpException;
 import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.security.JwtTokenServices;
 import com.codecool.codecoolquiz.service.AppUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +19,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Duration;
 import java.util.List;
@@ -25,6 +29,9 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
+    @Value("${jwt.expiration.minutes:60}")
+    private long cookieMaxAgeMinutes;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -71,10 +78,30 @@ public class AuthController {
                 .domain("localhost") // should be parameterized
                 .sameSite("Strict")  // CSRF
 //                .secure(true)
-                .maxAge(Duration.ofHours(10))
+                .maxAge(Duration.ofHours(cookieMaxAgeMinutes / 60))
                 .httpOnly(true)      // XSS
                 .path("/")
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
+    }
+
+    private void eraseCookie(HttpServletResponse response, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            cookie.setValue("");
+            response.addCookie(cookie);
+        }
+    }
+
+    @PostMapping("/sign-out")
+    public ResponseEntity signOut(HttpServletResponse response, HttpServletRequest request) {
+        try {
+            eraseCookie(response, request);
+            return ResponseEntity.status(200).build();
+        } catch (SignOutException e) {
+            return ResponseEntity.status(403).build();
+        }
     }
 }
