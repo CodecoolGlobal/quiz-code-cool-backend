@@ -97,6 +97,12 @@
             <artifactId>specification-arg-resolver</artifactId>
             <version>2.1.1</version>
         </dependency>
+
+        <!-- send email -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
