@@ -17,7 +17,7 @@ public class EmailSenderService {
         msg.setTo(email);
 
         msg.setSubject("Welcome " + username + "!");
-        msg.setText("Thank you for registering on our site. Enjoy the quizzes! :)");
+        msg.setText("Thank you for registering on our site. Enjoy the quizzes! :)\n\nThe quiz.code.cool Team");
 
         javaMailSender.send(msg);
     }
