@@ -60,7 +60,9 @@ public class QuestionStorage extends SpecificationArgumentResolver {
 
     public void remove(String questionId) {
         Question question = find(Integer.parseInt(questionId));
-
+        for (CustomQuiz quiz : question.getQuizzes()) {
+            quiz.removeQuestion(question);
+        }
         questionRepository.delete(question);
 
     }

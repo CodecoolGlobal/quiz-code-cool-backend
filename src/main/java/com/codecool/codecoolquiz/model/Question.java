@@ -42,7 +42,7 @@ public class Question {
     private boolean isValidated;
 
     @Singular
-    @ManyToMany
+    @ManyToMany(mappedBy = "questions")
     @EqualsAndHashCode.Exclude
     private List<CustomQuiz> quizzes;
 
