@@ -26,7 +26,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @Column( nullable = false, unique = true )
+    @Column( nullable = false )
     private String question;
 
     private String correctAnswer;
@@ -42,8 +42,25 @@ public class Question {
     private boolean isValidated;
 
     @Singular
-    @ManyToMany
+    @ManyToMany(mappedBy = "questions")
     @EqualsAndHashCode.Exclude
     private List<CustomQuiz> quizzes;
 
+    public void addQuiz(CustomQuiz quiz)  {
+        this.quizzes.add(quiz);
+    }
+
+    public void removeQuiz(CustomQuiz quiz)  {
+        this.quizzes.remove(quiz);
+    }
+
+    @Override
+    public String toString() {
+        return
+            "{" +
+                "id=" + this.id + ", " +
+                "question=" + this.question + "," +
+                "creationDate=" + this.creationDate +
+            "}";
+    }
 }
