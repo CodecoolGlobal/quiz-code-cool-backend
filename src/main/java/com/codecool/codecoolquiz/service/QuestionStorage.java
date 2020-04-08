@@ -39,6 +39,10 @@ public class QuestionStorage extends SpecificationArgumentResolver {
         questionRepository.save(question);
     }
 
+    public void addAll(List<Question> questions) {
+        questionRepository.saveAll(questions);
+    }
+
     public Optional<Question> getQuestionById(String questionId) {
         return questionRepository.findById(Integer.parseInt(questionId));
     }
