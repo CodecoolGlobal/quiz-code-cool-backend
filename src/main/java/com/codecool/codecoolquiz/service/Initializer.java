@@ -60,7 +60,7 @@ public class Initializer {
 
         appUserStorage.add(
                 AppUser.builder()
-                        .username("user")
+                        .username("username")
                         .password(encoder.encode("password"))
                         .role("USER")
                         .email("user@codecool.com")
