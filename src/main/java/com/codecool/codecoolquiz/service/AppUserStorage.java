@@ -22,6 +22,9 @@ public class AppUserStorage {
     @Autowired
     AppUserRepository appUserRepository;
 
+    @Autowired
+    EmailSenderService emailSenderService;
+
     public void add(AppUser appUser) {
         appUserRepository.save(appUser);
     }
@@ -51,6 +54,7 @@ public class AppUserStorage {
                 .registrationDate(LocalDate.now())
                 .build()
         );
+        emailSenderService.sendEmail(email, username);
         return true;
     }
 
