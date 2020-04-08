@@ -1,9 +1,11 @@
 package com.codecool.codecoolquiz.controller;
 
 import com.codecool.codecoolquiz.Util;
+import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 
+import lombok.extern.slf4j.Slf4j;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
@@ -37,14 +39,24 @@ public class QuestionController {
         return util.getRandomQuestionsFromList(filteredQuestions, amount);
     }
 
+
+
     @GetMapping("/{questionId}")
     public Optional<Question> getQuestion(@PathVariable String questionId) {
         return questionStorage.getQuestionById(questionId);
     }
 
+    @DeleteMapping("/{questionId}")
+    public void deleteQuestion(@PathVariable String questionId) throws Exception {
+        questionStorage.remove(questionId);
+
+
+    }
+
     @PutMapping("/{questionId}")
     public void validateQuestion(@PathVariable String questionId) throws Exception {
         questionStorage.validateQuestionById(questionId);
+
     }
 
     @PostMapping("/add")
