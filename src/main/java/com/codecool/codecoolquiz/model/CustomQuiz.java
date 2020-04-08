@@ -20,7 +20,15 @@ public class CustomQuiz {
     private String name;
 
     @Singular
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany
     @EqualsAndHashCode.Exclude
     private List<Question> questions;
+
+    public void addQuestion(Question question)  {
+        this.questions.add(question);
+    }
+
+    public void removeQuestion(Question question)  {
+        this.questions.remove(question);
+    }
 }

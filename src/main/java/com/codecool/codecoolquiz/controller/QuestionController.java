@@ -1,6 +1,7 @@
 package com.codecool.codecoolquiz.controller;
 
 import com.codecool.codecoolquiz.Util;
+import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 
@@ -37,6 +38,8 @@ public class QuestionController {
         List<Question> filteredQuestions = questionStorage.findAll(customerSpec);
         return util.getRandomQuestionsFromList(filteredQuestions, amount);
     }
+
+
 
     @GetMapping("/{questionId}")
     public Optional<Question> getQuestion(@PathVariable String questionId) {

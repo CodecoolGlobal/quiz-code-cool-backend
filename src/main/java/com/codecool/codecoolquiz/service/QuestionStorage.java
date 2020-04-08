@@ -1,14 +1,18 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.Util;
+import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
+import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import com.codecool.codecoolquiz.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +26,9 @@ public class QuestionStorage extends SpecificationArgumentResolver {
 
     @Autowired
     CategoryStorage categoryStorage;
+
+    @Autowired
+    CustomQuizRepository customQuizRepository;
 
     public List<Question> getAll() {
         return questionRepository.findAll();
@@ -53,7 +60,9 @@ public class QuestionStorage extends SpecificationArgumentResolver {
 
     public void remove(String questionId) {
         Question question = find(Integer.parseInt(questionId));
-        log.info("Delete question: " + question.toString());
+
         questionRepository.delete(question);
+
     }
+
 }
