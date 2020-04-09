@@ -19,8 +19,8 @@ public class EmailSenderService {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(email);
 
-        msg.setSubject("Welcome " + username + "!");
-        msg.setText("Thank you for registering on our site. Enjoy the quizzes! :)\n\nThe quiz.code.cool Team");
+        msg.setSubject("Welcome to quiz.code.cool!");
+        msg.setText("Hi " + username + ",\n\nThank you for registering on our site. Enjoy the quizzes! :)\n\nThe quiz.code.cool Team");
 
         try {
             javaMailSender.send(msg);
