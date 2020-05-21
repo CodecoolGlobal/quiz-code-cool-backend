@@ -59,7 +59,7 @@ public class QuestionController {
 
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public void saveNewQuestion(@RequestBody Question question) {
         questionStorage.add(question);
     }
