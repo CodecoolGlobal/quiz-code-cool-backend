@@ -24,9 +24,8 @@ public class CustomQuiz {
     @EqualsAndHashCode.Exclude
     private List<Question> questions;
 
-    public void addQuestion(Question question)  {
-        this.questions.add(question);
-    }
+    @ManyToOne
+    private AppUser appUser;
 
     public void removeQuestion(Question question)  {
         this.questions.remove(question);

@@ -222,6 +222,7 @@ public class Initializer {
         CustomQuiz progbasics = CustomQuiz.builder()
                 .name("ProgBasics module")
                 .questions(questions)
+                .appUser(appUser)
                 .build();
         customQuizStorage.add(progbasics);
 
@@ -430,6 +431,7 @@ public class Initializer {
         CustomQuiz web = CustomQuiz.builder()
                 .name("Web module")
                 .questions(questions)
+                .appUser(appUser)
                 .build();
         customQuizStorage.add(web);
     }
@@ -586,6 +588,7 @@ public class Initializer {
         CustomQuiz oop = CustomQuiz.builder()
                 .name("OOP module")
                 .questions(questions)
+                .appUser(appUser)
                 .build();
         customQuizStorage.add(oop);
     }
