@@ -3,6 +3,7 @@ package com.codecool.codecoolquiz.service;
 import com.codecool.codecoolquiz.Util;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
+import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import com.codecool.codecoolquiz.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -47,12 +49,12 @@ public class QuestionStorage extends SpecificationArgumentResolver {
         return questionRepository.findById(id).orElse(null);
     }
 
-    public List<Question> findAllBySpec(Specification<Question> customerSpec, Integer numOfNeededItems) {
+    public List<QuestionBody> findAllBySpec(Specification<Question> customerSpec, Integer numOfNeededItems) {
         List<Question> filteredQuestions = questionRepository.findAll(customerSpec);
         if (numOfNeededItems != null) {
             filteredQuestions = util.getRandomQuestionsFromList(filteredQuestions, numOfNeededItems);
         }
-        return filteredQuestions;
+        return filteredQuestions.stream().map(q -> new QuestionBody(q)).collect(Collectors.toList());
     }
 
     public void validateQuestionById(String questionId) throws Exception {

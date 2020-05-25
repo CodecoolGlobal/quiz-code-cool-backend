@@ -1,6 +1,6 @@
 package com.codecool.codecoolquiz.controller;
 
-import com.codecool.codecoolquiz.model.SignInResponseBody;
+import com.codecool.codecoolquiz.model.RequestResponseBody.SignInResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
 import com.codecool.codecoolquiz.model.exception.SignOutException;

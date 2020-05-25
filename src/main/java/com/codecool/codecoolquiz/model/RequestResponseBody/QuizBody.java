@@ -1,4 +1,4 @@
-package com.codecool.codecoolquiz.model;
+package com.codecool.codecoolquiz.model.RequestResponseBody;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
