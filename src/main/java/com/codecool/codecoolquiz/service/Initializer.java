@@ -35,15 +35,18 @@ public class Initializer {
         if (categoryStorage.categoryRepository.count() == 0) {
             loadInitCategories();
         }
-        if (questionStorage.questionRepository.count() == 0) {
-            loadProgBasicsQuestions();
-            loadWebQuestions();
-            loadOOPQuestions();
-        }
 
         if (appUserStorage.appUserRepository.count() == 0) {
             loadUsers();
         }
+        AppUser appUser = appUserStorage.getByName("admin");
+
+        if (questionStorage.questionRepository.count() == 0) {
+            loadProgBasicsQuestions(appUser);
+            loadWebQuestions(appUser);
+            loadOOPQuestions(appUser);
+        }
+
     }
 
     private void loadUsers() {
@@ -80,7 +83,7 @@ public class Initializer {
         categoryStorage.add(Category.builder().name("Javascript").build());
     }
 
-    private void loadProgBasicsQuestions() {
+    private void loadProgBasicsQuestions(AppUser appUser) {
 
         Question question = Question.builder()
                 .category(categoryStorage.getById(1))
@@ -91,6 +94,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 8))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question1 = Question.builder()
@@ -102,6 +106,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2010, 6, 14))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question2 = Question.builder()
@@ -113,6 +118,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 10))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question3 = Question.builder()
@@ -124,6 +130,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question4 = Question.builder()
@@ -135,6 +142,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question5 = Question.builder()
@@ -146,6 +154,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question6 = Question.builder()
@@ -157,6 +166,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question7 = Question.builder()
@@ -168,6 +178,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question8 = Question.builder()
@@ -179,6 +190,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question9 = Question.builder()
@@ -190,6 +202,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         List<Question> questions = Arrays.asList(
@@ -214,7 +227,7 @@ public class Initializer {
 
     }
 
-    private void loadWebQuestions() {
+    private void loadWebQuestions(AppUser appUser) {
 
         Question question = Question.builder()
                 .category(categoryStorage.getById(6))
@@ -225,6 +238,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question1 = Question.builder()
@@ -236,6 +250,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question2 = Question.builder()
@@ -247,6 +262,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question3 = Question.builder()
@@ -258,6 +274,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
         Question question4 = Question.builder()
                 .category(categoryStorage.getById(6))
@@ -268,6 +285,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question5 = Question.builder()
@@ -279,6 +297,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question6 = Question.builder()
@@ -290,6 +309,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 15))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question7 = Question.builder()
@@ -301,6 +321,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 19))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question8 = Question.builder()
@@ -312,6 +333,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 2, 20))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         Question question9 = Question.builder()
@@ -323,6 +345,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 2, 20))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         Question question10 = Question.builder()
@@ -334,6 +357,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 19))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         Question question11 = Question.builder()
@@ -345,6 +369,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 27))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         Question question12 = Question.builder()
@@ -356,6 +381,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 2, 4))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         Question question13 = Question.builder()
@@ -367,6 +393,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 2, 9))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         Question question14 = Question.builder()
@@ -378,6 +405,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 2, 13))
                 .validationDate(null)
                 .isValidated(true)
+                .appUser(appUser)
                 .build();
 
         List<Question> questions = Arrays.asList(
@@ -406,7 +434,7 @@ public class Initializer {
         customQuizStorage.add(web);
     }
 
-    private void loadOOPQuestions() {
+    private void loadOOPQuestions(AppUser appUser) {
 
         Question question = Question.builder()
                 .category(categoryStorage.getById(2))
@@ -417,6 +445,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question1 = Question.builder()
@@ -428,6 +457,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2019, 9, 20))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question2 = Question.builder()
@@ -439,6 +469,7 @@ public class Initializer {
                 .creationDate(LocalDate.now())
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question3 = Question.builder()
@@ -450,6 +481,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2019, 9, 20))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question4 = Question.builder()
@@ -461,6 +493,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2019, 9, 20))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question5 = Question.builder()
@@ -472,6 +505,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2019, 9, 20))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question6 = Question.builder()
@@ -483,6 +517,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2017, 9, 20))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question7 = Question.builder()
@@ -494,6 +529,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2017, 9, 20))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question8 = Question.builder()
@@ -505,6 +541,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2019, 11, 12))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question9 = Question.builder()
@@ -516,6 +553,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 3))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         Question question10 = Question.builder()
@@ -527,6 +565,7 @@ public class Initializer {
                 .creationDate(LocalDate.of(2020, 1, 5))
                 .validationDate(null)
                 .isValidated(false)
+                .appUser(appUser)
                 .build();
 
         List<Question> questions = Arrays.asList(

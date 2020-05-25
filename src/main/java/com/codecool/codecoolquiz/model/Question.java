@@ -46,13 +46,8 @@ public class Question {
     @EqualsAndHashCode.Exclude
     private List<CustomQuiz> quizzes;
 
-    public void addQuiz(CustomQuiz quiz)  {
-        this.quizzes.add(quiz);
-    }
-
-    public void removeQuiz(CustomQuiz quiz)  {
-        this.quizzes.remove(quiz);
-    }
+    @ManyToOne
+    private AppUser appUser;
 
     @Override
     public String toString() {

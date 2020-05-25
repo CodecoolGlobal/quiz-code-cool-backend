@@ -2,10 +2,7 @@ package com.codecool.codecoolquiz.model;
 
 import lombok.*;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,5 +28,9 @@ public class AppUser {
     @ElementCollection
     @Singular
     private List<String> roles;
+
+    @OneToMany(mappedBy = "appUser")
+    @EqualsAndHashCode.Exclude
+    private List<Question> questions;
 
 }
