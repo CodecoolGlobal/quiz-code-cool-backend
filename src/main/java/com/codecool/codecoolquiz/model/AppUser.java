@@ -36,6 +36,4 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser")
     @EqualsAndHashCode.Exclude
     private List<CustomQuiz> customQuizzes;
-
-
 }

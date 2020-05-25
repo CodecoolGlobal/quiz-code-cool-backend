@@ -1,8 +1,10 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.model.AppUser;
+import com.codecool.codecoolquiz.model.RequestResponseBody.UserBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
+import com.codecool.codecoolquiz.model.exception.UserNotFoundException;
 import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ public class AppUserStorage {
 
     @Autowired
     EmailSenderService emailSenderService;
+
+    public UserBody getUserBodyById(int id) throws UserNotFoundException {
+        AppUser user = appUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+        return new UserBody(user);
+    }
 
     public void add(AppUser appUser) {
         appUserRepository.save(appUser);

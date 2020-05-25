@@ -20,7 +20,7 @@ public class QuestionBody {
     private LocalDate creationDate;
     private LocalDate validationDate;
     private boolean isValidated;
-    private UserDataForQuestionBody appUser;
+    private ReferenceToOtherEntity appUser;
 
     public QuestionBody(Question question) {
         this.id = question.getId();
@@ -32,6 +32,6 @@ public class QuestionBody {
         this.creationDate = question.getCreationDate();
         this.validationDate = question.getValidationDate();
         this.isValidated = question.isValidated();
-        this.appUser = new UserDataForQuestionBody(question.getAppUser().getId(), question.getAppUser().getUsername());
+        this.appUser = new ReferenceToOtherEntity(question.getAppUser().getId(), question.getAppUser().getUsername());
     }
 }
