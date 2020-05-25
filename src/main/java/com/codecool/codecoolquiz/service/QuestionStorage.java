@@ -10,16 +10,16 @@ import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
 public class QuestionStorage extends SpecificationArgumentResolver {
+
+    @Autowired
+    Util util;
 
     @Autowired
     QuestionRepository questionRepository;
@@ -43,16 +43,16 @@ public class QuestionStorage extends SpecificationArgumentResolver {
         questionRepository.saveAll(questions);
     }
 
-    public Optional<Question> getQuestionById(String questionId) {
-        return questionRepository.findById(Integer.parseInt(questionId));
-    }
-
     public Question find(int id) {
         return questionRepository.findById(id).orElse(null);
     }
 
-    public List<Question> findAll(Specification<Question> customerSpec) {
-        return questionRepository.findAll(customerSpec);
+    public List<Question> findAllBySpec(Specification<Question> customerSpec, Integer numOfNeededItems) {
+        List<Question> filteredQuestions = questionRepository.findAll(customerSpec);
+        if (numOfNeededItems != null) {
+            filteredQuestions = util.getRandomQuestionsFromList(filteredQuestions, numOfNeededItems);
+        }
+        return filteredQuestions;
     }
 
     public void validateQuestionById(String questionId) throws Exception {
