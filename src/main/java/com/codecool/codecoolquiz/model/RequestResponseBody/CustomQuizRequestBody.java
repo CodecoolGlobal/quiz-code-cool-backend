@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuizBody {
+public class CustomQuizRequestBody {
     private String name;
     private int[] questionIds;
 }

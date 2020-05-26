@@ -1,7 +1,7 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.model.AppUser;
-import com.codecool.codecoolquiz.model.RequestResponseBody.UserBody;
+import com.codecool.codecoolquiz.model.RequestResponseBody.UserResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
 import com.codecool.codecoolquiz.model.exception.UserNotFoundException;
@@ -27,9 +27,9 @@ public class AppUserStorage {
     @Autowired
     EmailSenderService emailSenderService;
 
-    public UserBody getUserBodyById(int id) throws UserNotFoundException {
+    public UserResponseBody getUserResponseBodyById(int id) throws UserNotFoundException {
         AppUser user = appUserRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
-        return new UserBody(user);
+        return new UserResponseBody(user);
     }
 
     public void add(AppUser appUser) {

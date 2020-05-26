@@ -32,10 +32,6 @@ public class QuestionStorage extends SpecificationArgumentResolver {
     @Autowired
     CustomQuizRepository customQuizRepository;
 
-    public List<Question> getAll() {
-        return questionRepository.findAll();
-    }
-
     public void add(Question question) {
         question.setCreationDate(LocalDate.now());
         questionRepository.save(question);

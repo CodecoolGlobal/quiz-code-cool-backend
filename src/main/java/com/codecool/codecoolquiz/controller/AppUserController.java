@@ -20,7 +20,7 @@ public class AppUserController {
     @GetMapping("/{userId}")
     public ResponseEntity getUser(@PathVariable int userId) {
         try {
-            return ResponseEntity.ok().body(appUserStorage.getUserBodyById(userId));
+            return ResponseEntity.ok().body(appUserStorage.getUserResponseBodyById(userId));
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class UserBody {
+public class UserResponseBody {
     private Integer id;
     private String username;
     private LocalDate registrationDate;
     private List<ReferenceToOtherEntity> questions;
     private List<ReferenceToOtherEntity> customQuizzes;
 
-    public UserBody(AppUser user) {
+    public UserResponseBody(AppUser user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.registrationDate = user.getRegistrationDate();

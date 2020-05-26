@@ -1,8 +1,8 @@
 package com.codecool.codecoolquiz.controller;
 
-import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
-import com.codecool.codecoolquiz.model.RequestResponseBody.QuizBody;
+import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizRequestBody;
+import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizResponseBody;
 import com.codecool.codecoolquiz.service.CustomQuizStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +22,12 @@ public class CustomQuizController {
     }
 
     @GetMapping("")
-    public List<CustomQuiz> getCustomQuizzes() {
-        return customQuizStorage.getAll();
+    public List<CustomQuizResponseBody> getCustomQuizzes() {
+        return customQuizStorage.getCustomQuizResponseBodies();
     }
 
     @PostMapping("")
-    public void saveNewQuiz(@RequestBody QuizBody quizBody) {
+    public void saveNewQuiz(@RequestBody CustomQuizRequestBody quizBody) {
         customQuizStorage.addQuizBody(quizBody);
     }
 }
