@@ -1,5 +1,6 @@
 package com.codecool.codecoolquiz.controller;
 
+import com.codecool.codecoolquiz.model.AppUser;
 import com.codecool.codecoolquiz.model.RequestResponseBody.SignInResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
@@ -66,7 +67,8 @@ public class AuthController {
                     .collect(Collectors.toList());
             String token = jwtTokenServices.generateToken(authentication);
             addTokenToCookie(response, token);
-            SignInResponseBody signInBody = new SignInResponseBody(username, roles);
+            AppUser user = appUserStorage.getByName(username);
+            SignInResponseBody signInBody = new SignInResponseBody(username, roles, user.getId(), cookieMaxAgeMinutes);
             return ResponseEntity.ok().body(signInBody);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(403).build();
@@ -78,7 +80,7 @@ public class AuthController {
                 .domain("localhost") // should be parameterized
                 .sameSite("Strict")  // CSRF
 //                .secure(true)
-                .maxAge(Duration.ofHours(cookieMaxAgeMinutes / 60))
+                .maxAge(Duration.ofMinutes(cookieMaxAgeMinutes))
                 .httpOnly(true)      // XSS
                 .path("/")
                 .build();

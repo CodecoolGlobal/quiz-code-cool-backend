@@ -22,8 +22,8 @@ public class AppUserController {
         try {
             return ResponseEntity.ok().body(appUserStorage.getUserBodyById(userId));
         } catch (UserNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
 }

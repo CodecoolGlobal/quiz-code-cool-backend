@@ -2,7 +2,6 @@ package com.codecool.codecoolquiz.controller;
 
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
-import com.codecool.codecoolquiz.model.RequestResponseBody.QuizBody;
 import com.codecool.codecoolquiz.service.QuestionStorage;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
 import net.kaczmarzyk.spring.data.jpa.web.annotation.And;
