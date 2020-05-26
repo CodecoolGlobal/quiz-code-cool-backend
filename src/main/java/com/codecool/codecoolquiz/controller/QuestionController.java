@@ -31,8 +31,8 @@ public class QuestionController {
     }
 
     @GetMapping("/{questionId}")
-    public Question getQuestion(@PathVariable int questionId) {
-        return questionStorage.find(questionId);
+    public QuestionBody getQuestion(@PathVariable int questionId) {
+        return questionStorage.getQuestionBodyFromId(questionId);
     }
 
     @DeleteMapping("/{questionId}")

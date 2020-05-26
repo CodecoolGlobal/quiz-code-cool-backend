@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,8 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity signIn(@RequestBody UserCredentials data, HttpServletResponse response) {
-        try {
+    public SignInResponseBody signIn(@RequestBody UserCredentials data, HttpServletResponse response) {
             String username = data.getUsername();
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
@@ -68,11 +66,7 @@ public class AuthController {
             String token = jwtTokenServices.generateToken(authentication);
             addTokenToCookie(response, token);
             AppUser user = appUserStorage.getByName(username);
-            SignInResponseBody signInBody = new SignInResponseBody(username, roles, user.getId(), cookieMaxAgeMinutes);
-            return ResponseEntity.ok().body(signInBody);
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(403).build();
-        }
+            return new SignInResponseBody(username, roles, user.getId(), cookieMaxAgeMinutes);
     }
 
     private void addTokenToCookie(HttpServletResponse response, String token) {
@@ -87,23 +81,21 @@ public class AuthController {
         response.addHeader("Set-Cookie", cookie.toString());
     }
 
+    @PostMapping("/sign-out")
+    public void signOut(HttpServletResponse response, HttpServletRequest request) {
+        eraseCookie(response, request);
+    }
+
     private void eraseCookie(HttpServletResponse response, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            cookie.setPath("/");
-            cookie.setMaxAge(0);
-            cookie.setValue("");
-            response.addCookie(cookie);
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                cookie.setValue("");
+                response.addCookie(cookie);
+            }
         }
     }
 
-    @PostMapping("/sign-out")
-    public ResponseEntity signOut(HttpServletResponse response, HttpServletRequest request) {
-        try {
-            eraseCookie(response, request);
-            return ResponseEntity.status(200).build();
-        } catch (SignOutException e) {
-            return ResponseEntity.status(403).build();
-        }
-    }
 }

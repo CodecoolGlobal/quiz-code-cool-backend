@@ -4,6 +4,7 @@ import com.codecool.codecoolquiz.Util;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
+import com.codecool.codecoolquiz.model.exception.NotFoundException;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import com.codecool.codecoolquiz.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,12 @@ public class QuestionStorage extends SpecificationArgumentResolver {
     }
 
     public Question find(int id) {
-        return questionRepository.findById(id).orElse(null);
+        return questionRepository.findById(id).orElseThrow(() -> new NotFoundException("Question not found."));
+    }
+
+    public QuestionBody getQuestionBodyFromId(int id) {
+        Question question = find(id);
+        return new QuestionBody(question);
     }
 
     public List<QuestionBody> findAllBySpec(Specification<Question> customerSpec, Integer numOfNeededItems) {
