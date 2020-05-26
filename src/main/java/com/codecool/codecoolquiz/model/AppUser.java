@@ -17,10 +17,12 @@ public class AppUser {
     @GeneratedValue
     private Integer id;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
 
+    @Column(unique = true)
     private String email;
 
     private LocalDate registrationDate;
