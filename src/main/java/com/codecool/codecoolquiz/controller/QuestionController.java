@@ -27,6 +27,7 @@ public class QuestionController {
     @GetMapping("")
     public List<QuestionBody> findQuestions(
             @And({
+                    @Spec(path = "appUser.id", params = "user", spec = Equal.class),
                     @Spec(path = "category.id", params = "category", spec = Equal.class),
                     @Spec(path = "type", spec = Equal.class),
                     @Spec(path = "isValidated", params = "validated", spec = Equal.class)
