@@ -27,8 +27,12 @@ public class AppUserStorage {
     @Autowired
     EmailSenderService emailSenderService;
 
-    public UserResponseBody getUserResponseBodyById(int id) throws NotFoundException {
-        AppUser user = appUserRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found."));
+    public AppUser find(int id) throws NotFoundException {
+        return appUserRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found."));
+    }
+
+    public UserResponseBody getUserResponseBodyById(int id) {
+        AppUser user = find(id);
         return new UserResponseBody(user);
     }
 

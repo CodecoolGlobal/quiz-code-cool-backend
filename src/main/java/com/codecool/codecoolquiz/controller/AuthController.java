@@ -4,7 +4,6 @@ import com.codecool.codecoolquiz.model.AppUser;
 import com.codecool.codecoolquiz.model.RequestResponseBody.SignInResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
 import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
-import com.codecool.codecoolquiz.model.exception.SignOutException;
 import com.codecool.codecoolquiz.model.exception.SignUpException;
 import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.security.JwtTokenServices;

@@ -16,7 +16,7 @@ public class AppUserController {
     AppUserStorage appUserStorage;
 
     @GetMapping("/{userId}")
-    public UserResponseBody getUser(@PathVariable int userId)  {
+    public UserResponseBody getUser(@PathVariable int userId) {
         return appUserStorage.getUserResponseBodyById(userId);
     }
 
