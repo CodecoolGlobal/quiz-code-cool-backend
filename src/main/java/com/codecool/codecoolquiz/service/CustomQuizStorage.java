@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class CustomQuizStorage {
 
     @Autowired
-    AppUserRepository appUserRepository;
+    AppUserStorage appUserStorage;
 
     @Autowired
     CustomQuizRepository customQuizRepository;
@@ -34,7 +34,7 @@ public class CustomQuizStorage {
     }
 
     public void saveQuizByUserName(String username, CustomQuizRequestBody quizBody) {
-        AppUser appUser = appUserRepository.findByUsername(username).orElseThrow(() -> new NotFoundException("User not found."));
+        AppUser appUser = appUserStorage.getByName(username);
         String name = quizBody.getName();
         int[] questionIds = quizBody.getQuestionIds();
         List<Question> questionList = Arrays.stream(questionIds).mapToObj(e -> questionStorage.find(e)).collect(Collectors.toList());

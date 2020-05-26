@@ -12,6 +12,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -67,5 +69,20 @@ public class JwtTokenServices {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public String getUsernameFromToken(HttpServletRequest req) {
+        String username = null;
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(JwtTokenFilter.TOKEN)) {
+                    String cookieValue = cookie.getValue();
+                    Claims claims = getClaims(cookieValue);
+                    username = claims.getSubject();
+                }
+            }
+        }
+        return username;
     }
 }

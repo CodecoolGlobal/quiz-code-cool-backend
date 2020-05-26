@@ -1,6 +1,7 @@
 package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.Util;
+import com.codecool.codecoolquiz.model.AppUser;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
@@ -25,6 +26,9 @@ public class QuestionStorage extends SpecificationArgumentResolver {
     Util util;
 
     @Autowired
+    AppUserStorage appUserStorage;
+
+    @Autowired
     QuestionRepository questionRepository;
 
     @Autowired
@@ -33,8 +37,10 @@ public class QuestionStorage extends SpecificationArgumentResolver {
     @Autowired
     CustomQuizRepository customQuizRepository;
 
-    public void add(Question question) {
+    public void saveQuizByUserName(String username, Question question) {
+        AppUser appUser = appUserStorage.getByName(username);
         question.setCreationDate(LocalDate.now());
+        question.setAppUser(appUser);
         questionRepository.save(question);
     }
 
