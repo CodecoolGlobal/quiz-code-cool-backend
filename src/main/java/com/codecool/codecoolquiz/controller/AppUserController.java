@@ -1,6 +1,6 @@
 package com.codecool.codecoolquiz.controller;
 
-import com.codecool.codecoolquiz.model.exception.UserNotFoundException;
+import com.codecool.codecoolquiz.model.exception.NotFoundException;
 import com.codecool.codecoolquiz.service.AppUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class AppUserController {
     public ResponseEntity getUser(@PathVariable int userId) {
         try {
             return ResponseEntity.ok().body(appUserStorage.getUserResponseBodyById(userId));
-        } catch (UserNotFoundException e) {
+        } catch (NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

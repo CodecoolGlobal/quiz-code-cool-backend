@@ -4,7 +4,10 @@ import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizRequestBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizResponseBody;
+import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
+import com.codecool.codecoolquiz.model.exception.NotFoundException;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
+import org.springframework.beans.NotReadablePropertyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +39,17 @@ public class CustomQuizStorage {
         add(customQuiz);
     }
 
-    public List<Question> getQuestionsForCustomQuizById(int id) {
-        return customQuizRepository.getOne(id).getQuestions();
+    public CustomQuiz find(int id) throws NotFoundException {
+        return customQuizRepository.findById(id).orElseThrow(() -> new NotFoundException("Custom quiz not found."));
+    }
+
+    public List<Question> getCustomQuizQuestions(int id) throws NotFoundException {
+        CustomQuiz customQuiz = find(id);
+        return customQuiz.getQuestions();
+    }
+
+    public List<QuestionBody> getQuestionBodiesForCustomQuizById(int id) throws NotFoundException {
+        return getCustomQuizQuestions(id).stream().map(QuestionBody::new).collect(Collectors.toList());
     }
 
     public List<CustomQuizResponseBody> getCustomQuizResponseBodies() {
