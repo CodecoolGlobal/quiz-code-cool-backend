@@ -15,7 +15,7 @@ public class TypeController {
     TypeStorage typeStorage;
 
     @GetMapping("/types")
-    public EnumSet<Type> getCategories() {
+    public EnumSet<Type> getTypes() {
         return typeStorage.getAll();
     }
 }
