@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppUserStorage {
@@ -69,5 +71,8 @@ public class AppUserStorage {
         return true;
     }
 
+    public List<UserResponseBody> getUsers() {
+        return appUserRepository.findAll().stream().map((user)-> new UserResponseBody(user)).collect(Collectors.toList());
+    }
 }
 

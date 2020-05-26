@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class AppUserController {
@@ -18,6 +20,11 @@ public class AppUserController {
     @GetMapping("/{userId}")
     public UserResponseBody getUser(@PathVariable int userId) {
         return appUserStorage.getUserResponseBodyById(userId);
+    }
+
+    @GetMapping("")
+    public List<UserResponseBody> getUsers() {
+        return appUserStorage.getUsers();
     }
 
 }
