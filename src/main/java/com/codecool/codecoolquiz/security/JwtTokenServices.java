@@ -41,7 +41,7 @@ public class JwtTokenServices {
                 .collect(Collectors.toList());
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim("roles", roles)
+                .claim(rolesFieldName, roles)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * jwtExpirationMinutes))
                 .signWith(secretKey)
@@ -49,12 +49,8 @@ public class JwtTokenServices {
     }
 
     public UsernamePasswordAuthenticationToken validateTokenAndExtractUserSpringToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        ArrayList<String> rolesList = claims.get("roles", ArrayList.class);
+        Claims claims = getClaims(token);
+        ArrayList<String> rolesList = claims.get(rolesFieldName, ArrayList.class);
         List<SimpleGrantedAuthority> roles =
                 rolesList.stream()
                         .map(SimpleGrantedAuthority::new)
@@ -63,5 +59,13 @@ public class JwtTokenServices {
                 claims.getSubject(),
                 null,
                 roles);
+    }
+
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

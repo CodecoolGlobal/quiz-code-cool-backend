@@ -1,11 +1,14 @@
 package com.codecool.codecoolquiz.service;
 
+import com.codecool.codecoolquiz.model.AppUser;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizRequestBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizResponseBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
+import com.codecool.codecoolquiz.model.RequestResponseBody.UserResponseBody;
 import com.codecool.codecoolquiz.model.exception.NotFoundException;
+import com.codecool.codecoolquiz.repository.AppUserRepository;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,9 @@ import java.util.stream.Collectors;
 public class CustomQuizStorage {
 
     @Autowired
+    AppUserRepository appUserRepository;
+
+    @Autowired
     CustomQuizRepository customQuizRepository;
 
     @Autowired
@@ -27,13 +33,15 @@ public class CustomQuizStorage {
         customQuizRepository.save(customQuiz);
     }
 
-    public void addQuizBody(CustomQuizRequestBody quizBody) {
+    public void saveQuizByUserName(String username, CustomQuizRequestBody quizBody) {
+        AppUser appUser = appUserRepository.findByUsername(username).orElseThrow(() -> new NotFoundException("User not found."));
         String name = quizBody.getName();
         int[] questionIds = quizBody.getQuestionIds();
         List<Question> questionList = Arrays.stream(questionIds).mapToObj(e -> questionStorage.find(e)).collect(Collectors.toList());
         CustomQuiz customQuiz = CustomQuiz.builder()
                 .name(name)
                 .questions(questionList)
+                .appUser(appUser)
                 .build();
         add(customQuiz);
     }
