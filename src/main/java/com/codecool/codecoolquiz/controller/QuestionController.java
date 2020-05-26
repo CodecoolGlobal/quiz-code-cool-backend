@@ -36,14 +36,13 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{questionId}")
-    public void deleteQuestion(@PathVariable String questionId) {
+    public void deleteQuestion(@PathVariable int questionId) {
         questionStorage.remove(questionId);
     }
 
     @PutMapping("/{questionId}")
     public void validateQuestion(@PathVariable String questionId) throws Exception {
         questionStorage.validateQuestionById(questionId);
-
     }
 
     @PostMapping("")

@@ -66,8 +66,8 @@ public class QuestionStorage extends SpecificationArgumentResolver {
         questionRepository.save(questionToValidate);
     }
 
-    public void remove(String questionId) {
-        Question question = find(Integer.parseInt(questionId));
+    public void remove(int questionId) {
+        Question question = find(questionId);
         for (CustomQuiz quiz : question.getQuizzes()) {
             quiz.removeQuestion(question);
         }
