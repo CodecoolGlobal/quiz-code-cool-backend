@@ -39,12 +39,13 @@ public class Initializer {
         if (appUserStorage.appUserRepository.count() == 0) {
             loadUsers();
         }
-        AppUser appUser = appUserStorage.getByName("admin");
+        AppUser admin = appUserStorage.getByName("admin");
+        AppUser username = appUserStorage.getByName("username");
 
         if (questionStorage.questionRepository.count() == 0) {
-            loadProgBasicsQuestions(appUser);
-            loadWebQuestions(appUser);
-            loadOOPQuestions(appUser);
+            loadProgBasicsQuestions(username);
+            loadWebQuestions(admin);
+            loadOOPQuestions(admin);
         }
 
     }
