@@ -54,7 +54,7 @@ public class Initializer {
         appUserStorage.add(
                 AppUser.builder()
                         .username("admin")
-                        .password(encoder.encode("password"))
+                        .password(encoder.encode("password1"))
                         .role("USER")
                         .role("ADMIN")
                         .email("admin@codecool.com")
@@ -65,7 +65,7 @@ public class Initializer {
         appUserStorage.add(
                 AppUser.builder()
                         .username("username")
-                        .password(encoder.encode("password"))
+                        .password(encoder.encode("password1"))
                         .role("USER")
                         .email("user@codecool.com")
                         .registrationDate(LocalDate.now())
