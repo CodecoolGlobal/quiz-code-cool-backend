@@ -3,22 +3,16 @@ package com.codecool.codecoolquiz.controller;
 import com.codecool.codecoolquiz.model.AppUser;
 import com.codecool.codecoolquiz.model.RequestResponseBody.SignInResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
-import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
-import com.codecool.codecoolquiz.model.exception.SignUpException;
-import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.security.JwtTokenServices;
 import com.codecool.codecoolquiz.service.AppUserStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.Duration;
@@ -42,15 +36,9 @@ public class AuthController {
     AppUserStorage appUserStorage;
 
     @PostMapping("/sign-up")
-    public ResponseEntity signUp(@RequestBody UserCredentials userCredentials) {
-        try {
-            appUserStorage.signUp(userCredentials);
-            return ResponseEntity.ok().body(userCredentials.getUsername());
-        } catch (EmailAlreadyExistException e) {
-            return ResponseEntity.status(409).body(SignUpException.EMAIL);
-        } catch (UsernameAlreadyExistException e) {
-            return ResponseEntity.status(409).body(SignUpException.USERNAME);
-        }
+    public String signUp(@RequestBody UserCredentials userCredentials) {
+        appUserStorage.signUp(userCredentials);
+        return userCredentials.getUsername();
     }
 
     @PostMapping("/sign-in")
@@ -82,19 +70,7 @@ public class AuthController {
 
     @PostMapping("/sign-out")
     public void signOut(HttpServletResponse response, HttpServletRequest request) {
-        eraseCookie(response, request);
-    }
-
-    private void eraseCookie(HttpServletResponse response, HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                cookie.setPath("/");
-                cookie.setMaxAge(0);
-                cookie.setValue("");
-                response.addCookie(cookie);
-            }
-        }
+        jwtTokenServices.eraseCookie(response, request);
     }
 
 }

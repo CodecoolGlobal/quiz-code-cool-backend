@@ -3,7 +3,7 @@ package com.codecool.codecoolquiz.service;
 import com.codecool.codecoolquiz.model.AppUser;
 import com.codecool.codecoolquiz.model.RequestResponseBody.UserResponseBody;
 import com.codecool.codecoolquiz.model.UserCredentials;
-import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistException;
+import com.codecool.codecoolquiz.model.exception.EmailAlreadyExistsException;
 import com.codecool.codecoolquiz.model.exception.NotFoundException;
 import com.codecool.codecoolquiz.model.exception.UsernameAlreadyExistException;
 import com.codecool.codecoolquiz.repository.AppUserRepository;
@@ -56,7 +56,7 @@ public class AppUserStorage {
             throw new UsernameAlreadyExistException();
         }
         if (appUserRepository.findByEmail(email).isPresent()) {
-            throw new EmailAlreadyExistException();
+            throw new EmailAlreadyExistsException();
         }
         appUserRepository.save(AppUser
                 .builder()

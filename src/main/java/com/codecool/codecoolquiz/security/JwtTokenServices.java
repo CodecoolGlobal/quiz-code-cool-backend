@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -84,5 +85,17 @@ public class JwtTokenServices {
             }
         }
         return username;
+    }
+
+    public void eraseCookie(HttpServletResponse response, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                cookie.setPath("/");
+                cookie.setMaxAge(0);
+                cookie.setValue("");
+                response.addCookie(cookie);
+            }
+        }
     }
 }

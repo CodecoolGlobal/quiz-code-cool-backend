@@ -2,15 +2,16 @@ package com.codecool.codecoolquiz.service;
 
 import com.codecool.codecoolquiz.Util;
 import com.codecool.codecoolquiz.model.AppUser;
-import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
 import com.codecool.codecoolquiz.model.exception.NotFoundException;
+import com.codecool.codecoolquiz.model.exception.UnsuccessfulDeletion;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import com.codecool.codecoolquiz.repository.QuestionRepository;
 import lombok.extern.slf4j.Slf4j;
 import net.kaczmarzyk.spring.data.jpa.web.SpecificationArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -73,12 +74,11 @@ public class QuestionStorage extends SpecificationArgumentResolver {
     }
 
     public void remove(int questionId) {
-        Question question = find(questionId);
-        for (CustomQuiz quiz : question.getQuizzes()) {
-            quiz.removeQuestion(question);
+        try {
+            questionRepository.deleteById(questionId);
+        } catch (DataIntegrityViolationException e) {
+            throw new UnsuccessfulDeletion("Question" + questionId + " cannot be deleted, as long as it appears in a quiz.");
         }
-        questionRepository.delete(question);
-
     }
 
 }
