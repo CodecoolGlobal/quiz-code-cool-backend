@@ -59,8 +59,9 @@ public class QuestionStorage extends SpecificationArgumentResolver {
 
     public List<QuestionBody> findAllBySpec(Specification<Question> customerSpec, Integer numOfNeededItems) {
         List<Question> filteredQuestions = questionRepository.findAll(customerSpec);
-        filteredQuestions = util.getRandomQuestionsFromList(filteredQuestions, numOfNeededItems);
-
+        if (numOfNeededItems != null) {
+            filteredQuestions = util.getRandomQuestionsFromList(filteredQuestions, numOfNeededItems);
+        }
         return filteredQuestions.stream().map(q -> new QuestionBody(q)).collect(Collectors.toList());
     }
 
