@@ -44,7 +44,9 @@ public class Initializer {
             AppUser admin = appUserStorage.getByName("admin");
             AppUser username = appUserStorage.getByName("username");
             loadPythonQuestionsWithoutQuiz(username);
+            loadNetworkQuestionsWithoutQuiz(username);
             loadCssQuestionsWithoutQuiz(username);
+            loadSQLQuestionsWithoutQuiz(admin);
             loadJSQuestionsWithoutQuiz(admin);
             loadProgBasicsQuestions(username);
             loadWebQuestions(admin);
@@ -240,6 +242,18 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
+        Question question13 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("What is output for − 'search'.find('S') ?")
+                .correctAnswer("-1")
+                .incorrectAnswers(Arrays.asList("1", "0", "false"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
         List<Question> questions = Arrays.asList(
                 question,
                 question2,
@@ -252,7 +266,41 @@ public class Initializer {
                 question9,
                 question10,
                 question11,
-                question12
+                question12,
+                question13
+        );
+        questionStorage.addAll(questions);
+    }
+
+    private void loadSQLQuestionsWithoutQuiz(AppUser appUser) {
+
+        Question question = Question.builder()
+                .category(categoryStorage.getById(3))
+                .type(Type.MULTIPLE)
+                .question("Which is not a valid SQL statement?")
+                .correctAnswer("ORDER BY")
+                .incorrectAnswers(Arrays.asList("INSERT", "UPDATE", "DELETE"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question2 = Question.builder()
+                .category(categoryStorage.getById(4))
+                .type(Type.MULTIPLE)
+                .question("What is returned by TRUNC(789.8389, 2)?")
+                .correctAnswer("789.83")
+                .incorrectAnswers(Arrays.asList("789.84", "78", "789.00"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        List<Question> questions = Arrays.asList(
+                question,
+                question2
         );
         questionStorage.addAll(questions);
     }
@@ -322,18 +370,6 @@ public class Initializer {
         Question question6 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
-                .question("Which is not a valid SQL statement?")
-                .correctAnswer("ORDER BY")
-                .incorrectAnswers(Arrays.asList("INSERT", "UPDATE", "DELETE"))
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question7 = Question.builder()
-                .category(categoryStorage.getById(3))
-                .type(Type.MULTIPLE)
                 .question("What is the default value of the overflow property?")
                 .correctAnswer("visible")
                 .incorrectAnswers(Arrays.asList("scroll", "hidden", "auto"))
@@ -343,7 +379,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question8 = Question.builder()
+        Question question7 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
                 .question("In order to make the z-index property work you must ...")
@@ -355,7 +391,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question9 = Question.builder()
+        Question question8 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
                 .question("Which of the following is NOT a pseudo element in CSS?")
@@ -367,7 +403,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question10 = Question.builder()
+        Question question9 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
                 .question("In the following code snippet, what value is given for the bottom-right corner? border-radius: 10px 20px 30px 40px;")
@@ -379,7 +415,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question11 = Question.builder()
+        Question question10 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.BOOLEAN)
                 .question("The opacity property value must be a number between 0 (fully transparent) and 100 (fully opaque).")
@@ -391,24 +427,12 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question12 = Question.builder()
+        Question question11 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.BOOLEAN)
                 .question("Visibility property with hidden value hides an element, but it will still take up the same space as before.")
                 .correctAnswer("true")
                 .incorrectAnswer("false")
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question13 = Question.builder()
-                .category(categoryStorage.getById(4))
-                .type(Type.MULTIPLE)
-                .question("What is returned by TRUNC(789.8389, 2)?")
-                .correctAnswer("789.83")
-                .incorrectAnswers(Arrays.asList("789.84", "78", "789.00"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -426,9 +450,7 @@ public class Initializer {
                 question8,
                 question9,
                 question10,
-                question11,
-                question12,
-                question13
+                question11
         );
         questionStorage.addAll(questions);
     }
@@ -550,7 +572,7 @@ public class Initializer {
                 .correctAnswer("ECMAScript 6 is also known as ES6 and ECMAScript 2016")
                 .incorrectAnswers(Arrays.asList(
                         "ES6 introduced new OOP concepts such as classes",
-                        "ES6 adds new syntax including modules, arrow functions, promises,  for/of loops",
+                        "ES6 adds new syntax including modules, arrow functions, promises, for/of loops",
                         "JavaScript is one of the most popular implementations of ES"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
@@ -594,18 +616,6 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question14 = Question.builder()
-                .category(categoryStorage.getById(7))
-                .type(Type.MULTIPLE)
-                .question("418 status code stands for...")
-                .correctAnswer("I'm a teapot")
-                .incorrectAnswers(Arrays.asList("Upgrade Required", "Request Timeout", "Not Acceptable"))
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
         List<Question> questions = Arrays.asList(
                 question,
                 question2,
@@ -619,8 +629,55 @@ public class Initializer {
                 question10,
                 question11,
                 question12,
-                question13,
-                question14
+                question13
+        );
+        questionStorage.addAll(questions);
+    }
+
+    private void loadNetworkQuestionsWithoutQuiz(AppUser appUser) {
+
+        Question question = Question.builder()
+                .category(categoryStorage.getById(7))
+                .type(Type.MULTIPLE)
+                .question("418 status code stands for...")
+                .correctAnswer("I'm a teapot")
+                .incorrectAnswers(Arrays.asList("Upgrade Required", "Request Timeout", "Not Acceptable"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question2 = Question.builder()
+                .category(categoryStorage.getById(7))
+                .type(Type.MULTIPLE)
+                .question("In the network HTTP resources are located by")
+                .correctAnswer("uniform resource identifier")
+                .incorrectAnswers(Arrays.asList("unique resource locator", "unique resource identifier", "union resource locator"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question3 = Question.builder()
+                .category(categoryStorage.getById(7))
+                .type(Type.MULTIPLE)
+                .question("DNS stands for")
+                .correctAnswer("Domain Name System")
+                .incorrectAnswers(Arrays.asList(
+                        "Domain Name Server",
+                        "Domain Network Server", "Destination Network Server"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        List<Question> questions = Arrays.asList(
+                question,
+                question2,
+                question3
         );
         questionStorage.addAll(questions);
     }
@@ -1245,18 +1302,6 @@ public class Initializer {
                 .build();
 
         Question question10 = Question.builder()
-                .category(categoryStorage.getById(2))
-                .type(Type.MULTIPLE)
-                .question("What is output for − 'search'. find('S') ?")
-                .correctAnswer("interface")
-                .incorrectAnswers(Arrays.asList("s", "-1", "''"))
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question11 = Question.builder()
                 .category(categoryStorage.getById(6))
                 .type(Type.BOOLEAN)
                 .question("Linked list is a data structure where multiple list are linked to each other.")
@@ -1267,7 +1312,6 @@ public class Initializer {
                 .isValidated(true)
                 .appUser(appUser)
                 .build();
-
 
         List<Question> questions = Arrays.asList(
                 question,
@@ -1280,8 +1324,7 @@ public class Initializer {
                 question7,
                 question8,
                 question9,
-                question10,
-                question11
+                question10
         );
 
         questionStorage.addAll(questions);
