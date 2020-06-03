@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +57,9 @@ public class CustomQuizStorage {
     }
 
     public List<QuestionBody> getQuestionBodiesForCustomQuizById(int id) {
-        return getCustomQuizQuestions(id).stream().map(QuestionBody::new).collect(Collectors.toList());
+        List<Question> questions = getCustomQuizQuestions(id);
+        Collections.shuffle(questions);
+        return questions.stream().map(QuestionBody::new).collect(Collectors.toList());
     }
 
     public List<CustomQuizResponseBody> getCustomQuizResponseBodies() {

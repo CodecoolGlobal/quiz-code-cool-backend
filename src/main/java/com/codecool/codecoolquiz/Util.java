@@ -15,7 +15,7 @@ public class Util {
         List<Question> newList = new ArrayList<>();
 
         if (list.size() != 0 &&
-            numOfNeededItems != 0 ||
+            numOfNeededItems != 0 &&
             numOfNeededItems < list.size()) {
             Random rand = new Random();
 

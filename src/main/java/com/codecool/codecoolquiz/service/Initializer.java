@@ -45,6 +45,7 @@ public class Initializer {
             AppUser username = appUserStorage.getByName("username");
             loadPythonQuestionsWithoutQuiz(username);
             loadCssQuestionsWithoutQuiz(username);
+            loadJSQuestionsWithoutQuiz(admin);
             loadProgBasicsQuestions(username);
             loadWebQuestions(admin);
             loadOOPQuestions(admin);
@@ -91,30 +92,6 @@ public class Initializer {
         Question question = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
-                .question("Which is the incorrect statement?")
-                .correctAnswer("Python is statically-typed language")
-                .incorrectAnswers(Arrays.asList("Python is processed at runtime by the interpreter", "Python was created by Guido van Rossum", "CPython is an implementation of Python"))
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question2 = Question.builder()
-                .category(categoryStorage.getById(1))
-                .type(Type.BOOLEAN)
-                .question("Python code must be compiled before execution.")
-                .correctAnswer("false")
-                .incorrectAnswer("true")
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question3 = Question.builder()
-                .category(categoryStorage.getById(1))
-                .type(Type.MULTIPLE)
                 .question("In Python 3.x you can print \"Hello World!\" onto the screen with:")
                 .correctAnswer("print('Hello World!')")
                 .incorrectAnswers(Arrays.asList("print \"Hello World!\"", "System.out.println(\"Hello World!\")", "print(\"Hello world\")"))
@@ -124,10 +101,10 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question4 = Question.builder()
+        Question question2 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.BOOLEAN)
-                .question("10 / 2 evaluates to 5.0")
+                .question("Floats can be created by using operations such as division on integers.")
                 .correctAnswer("true")
                 .incorrectAnswer("false")
                 .creationDate(LocalDate.now())
@@ -136,19 +113,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question5 = Question.builder()
-                .category(categoryStorage.getById(1))
-                .type(Type.BOOLEAN)
-                .question("Floats can be created directly by entering a number with a decimal point, or by using operations such as division on integers.")
-                .correctAnswer("true")
-                .incorrectAnswer("false")
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question6 = Question.builder()
+        Question question3 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
                 .question("Which is not a valid arithmetic operator in Python?")
@@ -160,7 +125,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question7 = Question.builder()
+        Question question4 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
                 .question("Which error will be produced?\n>>> 1 + '2' + 3 + '4'")
@@ -172,19 +137,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question8 = Question.builder()
-                .category(categoryStorage.getById(1))
-                .type(Type.MULTIPLE)
-                .question("Which is a correct import statement?")
-                .correctAnswer("from math import sqrt, cos")
-                .incorrectAnswers(Arrays.asList("import sqrt", "import cos from math", "import sqrt from math as square_root"))
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
-
-        Question question9 = Question.builder()
+        Question question5 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
                 .question("What error is caused by importing an unknown module?")
@@ -196,12 +149,67 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question10 = Question.builder()
+        Question question6 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
-                .question("Which of the following data types does not allow duplicate values?")
-                .correctAnswer("Sets")
-                .incorrectAnswers(Arrays.asList("Tuples", "Lists", "Dictionaries"))
+                .question("Which of the following cannot be a variable?")
+                .correctAnswer("in")
+                .incorrectAnswers(Arrays.asList("__init__", "it", "on"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question7 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("Which is a valid conditional expression? (ternary operator)")
+                .correctAnswer("b = 1 if a >= 5 else 2")
+                .incorrectAnswers(Arrays.asList(
+                        "if a >= 5 then b = 1 else b = 2",
+                        "b = a >= 5 ? 1 : 2",
+                        "b = 1 when a >= 5 else 2"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question8 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.BOOLEAN)
+                .question("To ensures that python code won't be run if the file containing your code is imported, put your code inside if __name__ == \"__main__\".")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question9 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("Which is not true?")
+                .correctAnswer("\"7\" + 'eight' will produce an error")
+                .incorrectAnswers(Arrays.asList(
+                        "Strings can be multiplied by integers.",
+                        "You can’t concatenate strings with integers.",
+                        "Strings can't be multiplied by floats, even if the floats are whole numbers."
+                         ))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question10 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.BOOLEAN)
+                .question("The insert method adds an item to the end of an existing list.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -211,9 +219,9 @@ public class Initializer {
         Question question11 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
-                .question("Which will cause an error?")
-                .correctAnswer("[\"spam\", \"eggs\"].join(\",\")")
-                .incorrectAnswers(Arrays.asList("\"spam, eggs, ham\".split(\", \")", "\"Hello ME\".replace(\"ME\", \"world\")", "\"This is a sentence.\".endswith(\"sentence.\")"))
+                .question("To get the number of items in my_list, you can use:")
+                .correctAnswer("len(my_list)")
+                .incorrectAnswers(Arrays.asList("my_list.size()", "my_list.length", "my_list.length()"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -223,7 +231,7 @@ public class Initializer {
         Question question12 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.BOOLEAN)
-                .question("Named parameters to a function can be made optional by giving them a default value.")
+                .question("Tuples can be sliced")
                 .correctAnswer("true")
                 .incorrectAnswer("false")
                 .creationDate(LocalDate.now())
@@ -254,9 +262,9 @@ public class Initializer {
         Question question = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
-                .question("Which is the incorrect statement?")
-                .correctAnswer("CSS stands for Custom Style Sheets.")
-                .incorrectAnswers(Arrays.asList("The benefit of CSS is that it allows you to separate style from content.", "Cascading refers to the way CSS applies one style on top of another.", "CSS defines how HTML elements are displayed."))
+                .question("Which of the following a anchor pseudo class signifies visited hyperlinks?")
+                .correctAnswer(":visited")
+                .incorrectAnswers(Arrays.asList(":link", ":hover", ":active"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -314,9 +322,9 @@ public class Initializer {
         Question question6 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
-                .question("The \"overflow\" property is used to:")
-                .correctAnswer("Specify the behavior that occurs when the content overflows the element's box")
-                .incorrectAnswers(Arrays.asList("Make the box fit to the data it contains", "Make the box be compatible with the web standards", "Display a scrollbar next to the element"))
+                .question("Which is not a valid SQL statement?")
+                .correctAnswer("ORDER BY")
+                .incorrectAnswers(Arrays.asList("INSERT", "UPDATE", "DELETE"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -395,6 +403,18 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
+        Question question13 = Question.builder()
+                .category(categoryStorage.getById(4))
+                .type(Type.MULTIPLE)
+                .question("What is returned by TRUNC(789.8389, 2)?")
+                .correctAnswer("789.83")
+                .incorrectAnswers(Arrays.asList("789.84", "78", "789.00"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
         List<Question> questions = Arrays.asList(
                 question,
                 question2,
@@ -407,18 +427,210 @@ public class Initializer {
                 question9,
                 question10,
                 question11,
-                question12
+                question12,
+                question13
         );
         questionStorage.addAll(questions);
     }
 
+    private void loadJSQuestionsWithoutQuiz(AppUser appUser) {
+
+        Question question = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("Declarations with var keyword are globally scoped or function scoped.")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question2 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("The const and let keywords define variables with block scope.")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question3 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.MULTIPLE)
+                .question("Which statement is true?")
+                .correctAnswer("JavaScript only hoists declarations, not initializations")
+                .incorrectAnswers(Arrays.asList("Const and let keywords define variables globally or with function scope", "Var defines variables with block scope", "Const and let are subject to variable hoisting"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question4 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("The for...in loop is intended for iterating over the enumerable keys of an object.")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question5 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("'And', 'or' and 'not' are valid javascript operators.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question6 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.MULTIPLE)
+                .question("What tag contains the JavaScript code?")
+                .correctAnswer("script")
+                .incorrectAnswers(Arrays.asList("body", "style", "code"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question7 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("A variable declared without a value will have the value null.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question8 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("The continue statement \"jumps out\" of a loop and continues executing the code after the loop.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question9 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.MULTIPLE)
+                .question("How can we not define a function?")
+                .correctAnswer("with function builder")
+                .incorrectAnswers(Arrays.asList("with function declaration", "with function expression", "with arrow function expression"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question10 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.MULTIPLE)
+                .question("Which is not true?")
+                .correctAnswer("ECMAScript 6 is also known as ES6 and ECMAScript 2016")
+                .incorrectAnswers(Arrays.asList(
+                        "ES6 introduced new OOP concepts such as classes",
+                        "ES6 adds new syntax including modules, arrow functions, promises,  for/of loops",
+                        "JavaScript is one of the most popular implementations of ES"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question11 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.MULTIPLE)
+                .question("In switch statement the \"default\" statement is used ...")
+                .correctAnswer("when no match is found")
+                .incorrectAnswers(Arrays.asList("to finish the \"case\" statement", "because it is obligatory", "to keep the code as readable as possible"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question12 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.BOOLEAN)
+                .question("ECMAScript is a scripting language specification created to standardize JavaScript.")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question13 = Question.builder()
+                .category(categoryStorage.getById(8))
+                .type(Type.MULTIPLE)
+                .question("Which is true?")
+                .correctAnswer("The document object is the root of the DOM")
+                .incorrectAnswers(Arrays.asList("DOM stands for Document Orientation Model", "innerHTML is a method", "A node in the DOM can have multiple parent nodes"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question14 = Question.builder()
+                .category(categoryStorage.getById(7))
+                .type(Type.MULTIPLE)
+                .question("418 status code stands for...")
+                .correctAnswer("I'm a teapot")
+                .incorrectAnswers(Arrays.asList("Upgrade Required", "Request Timeout", "Not Acceptable"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        List<Question> questions = Arrays.asList(
+                question,
+                question2,
+                question3,
+                question4,
+                question5,
+                question6,
+                question7,
+                question8,
+                question9,
+                question10,
+                question11,
+                question12,
+                question13,
+                question14
+        );
+        questionStorage.addAll(questions);
+    }
 
     private void loadProgBasicsQuestions(AppUser appUser) {
 
         Question question = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.MULTIPLE)
-                .question("Which of the following is an invalid variable?")
+                .question("Which of the following is an invalid variable name?")
                 .correctAnswer("1st_string")
                 .incorrectAnswers(Arrays.asList("my_string_1", "foo", "_"))
                 .creationDate(LocalDate.now())
@@ -440,11 +652,11 @@ public class Initializer {
                 .build();
 
         Question question2 = Question.builder()
-                .category(categoryStorage.getById(1))
+                .category(categoryStorage.getById(6))
                 .type(Type.MULTIPLE)
-                .question("Which of the following cannot be a variable?")
-                .correctAnswer("in")
-                .incorrectAnswers(Arrays.asList("__init__", "it", "on"))
+                .question("What is the automatic process by which unnecessary objects are deleted to free memory?")
+                .correctAnswer("Garbage collection")
+                .incorrectAnswers(Arrays.asList("Rubbish deletion", "Bit-trash exfoliation", "Deep cleaning"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -500,11 +712,11 @@ public class Initializer {
                 .build();
 
         Question question7 = Question.builder()
-                .category(categoryStorage.getById(6))
-                .type(Type.MULTIPLE)
-                .question("Which is not a git command?")
-                .correctAnswer("delete")
-                .incorrectAnswers(Arrays.asList("init", "reset", "revert"))
+                .category(categoryStorage.getById(1))
+                .type(Type.BOOLEAN)
+                .question("Python code must be compiled before execution.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -535,6 +747,78 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
+        Question question10 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("Which is a correct import statement?")
+                .correctAnswer("from math import sqrt, cos")
+                .incorrectAnswers(Arrays.asList("import sqrt", "import cos from math", "import sqrt from math as square_root"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question11 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("Which will cause an error?")
+                .correctAnswer("[\"spam\", \"eggs\"].join(\",\")")
+                .incorrectAnswers(Arrays.asList("\"spam, eggs, ham\".split(\", \")", "\"Hello ME\".replace(\"ME\", \"world\")", "\"This is a sentence.\".endswith(\"sentence.\")"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question12 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.BOOLEAN)
+                .question("10 / 2 evaluates to 5.0")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question13 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("Which is the incorrect statement?")
+                .correctAnswer("Python is statically-typed language")
+                .incorrectAnswers(Arrays.asList("Python is processed at runtime by the interpreter", "Python was created by Guido van Rossum", "CPython is an implementation of Python"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question14 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.MULTIPLE)
+                .question("Which of the following data types does not allow duplicate values?")
+                .correctAnswer("Sets")
+                .incorrectAnswers(Arrays.asList("Tuples", "Lists", "Dictionaries"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question15 = Question.builder()
+                .category(categoryStorage.getById(1))
+                .type(Type.BOOLEAN)
+                .question("Named parameters to a function can be made optional by giving them a default value.")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
         List<Question> questions = Arrays.asList(
                 question,
                 question1,
@@ -545,7 +829,13 @@ public class Initializer {
                 question6,
                 question7,
                 question8,
-                question9
+                question9,
+                question10,
+                question11,
+                question12,
+                question13,
+                question14,
+                question15
         );
 
         questionStorage.addAll(questions);
@@ -561,9 +851,9 @@ public class Initializer {
     private void loadWebQuestions(AppUser appUser) {
 
         Question question = Question.builder()
-                .category(categoryStorage.getById(6))
+                .category(categoryStorage.getById(8))
                 .type(Type.BOOLEAN)
-                .question("Linked list is a data structure where multiple list are linked to each other.")
+                .question("Use querySelector() method to get all elements in the document with a specified class.")
                 .correctAnswer("false")
                 .incorrectAnswer("true")
                 .creationDate(LocalDate.now())
@@ -572,7 +862,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question1 = Question.builder()
+        Question question2 = Question.builder()
                 .category(categoryStorage.getById(8))
                 .type(Type.BOOLEAN)
                 .question("With event capturing, the event is first captured by the outermost element and propagated to the inner elements.")
@@ -584,7 +874,7 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question2 = Question.builder()
+        Question question3 = Question.builder()
                 .category(categoryStorage.getById(4))
                 .type(Type.BOOLEAN)
                 .question("Constrains allow you to summarize information about a group of rows of data.")
@@ -596,17 +886,6 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
-        Question question3 = Question.builder()
-                .category(categoryStorage.getById(7))
-                .type(Type.MULTIPLE)
-                .question("418 status code stands for...")
-                .correctAnswer("I'm a teapot")
-                .incorrectAnswers(Arrays.asList("Upgrade Required", "Request Timeout", "Not Acceptable"))
-                .creationDate(LocalDate.now())
-                .validationDate(LocalDate.now())
-                .isValidated(true)
-                .appUser(appUser)
-                .build();
         Question question4 = Question.builder()
                 .category(categoryStorage.getById(6))
                 .type(Type.BOOLEAN)
@@ -646,9 +925,9 @@ public class Initializer {
         Question question7 = Question.builder()
                 .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
-                .question("Which of the following a anchor pseudo class signifies visited hyperlinks?")
-                .correctAnswer(":visited")
-                .incorrectAnswers(Arrays.asList(":link", ":hover", ":active"))
+                .question("Which is not true?")
+                .correctAnswer("CSS stands for Custom Style Sheets.")
+                .incorrectAnswers(Arrays.asList("CSS allows you to separate style from content.", "Cascading refers to the way CSS applies one style on top of another.", "CSS defines how HTML elements are displayed."))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -692,11 +971,11 @@ public class Initializer {
                 .build();
 
         Question question11 = Question.builder()
-                .category(categoryStorage.getById(4))
+                .category(categoryStorage.getById(3))
                 .type(Type.MULTIPLE)
-                .question("What is returned by TRUNC(789.8389, 2)?")
-                .correctAnswer("789.83")
-                .incorrectAnswers(Arrays.asList("789.84", "78", "789.00"))
+                .question("The \"overflow\" property is used to:")
+                .correctAnswer("Specify the behavior that occurs when the content overflows the element's box")
+                .incorrectAnswers(Arrays.asList("Make the box fit to the data it contains", "Make the box be compatible with the web standards", "Display a scrollbar next to the element"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -739,9 +1018,80 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
+        Question question15 = Question.builder()
+                .category(categoryStorage.getById(6))
+                .type(Type.MULTIPLE)
+                .question("Which is not a git command?")
+                .correctAnswer("delete")
+                .incorrectAnswers(Arrays.asList("init", "reset", "revert"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question16 = Question.builder()
+                .category(categoryStorage.getById(4))
+                .type(Type.MULTIPLE)
+                .question("Which is not an SQL operator?")
+                .correctAnswer("LIMIT")
+                .incorrectAnswers(Arrays.asList("<>", "AND", "NOT"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question17 = Question.builder()
+                .category(categoryStorage.getById(3))
+                .type(Type.MULTIPLE)
+                .question("Which is not a CSS selector?")
+                .correctAnswer("dotted")
+                .incorrectAnswers(Arrays.asList(".intro", "#top", "h2"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question18 = Question.builder()
+                .category(categoryStorage.getById(3))
+                .type(Type.BOOLEAN)
+                .question("Border property is a shorthand format for other properties: border-width, border-style, border-color.")
+                .correctAnswer("true")
+                .incorrectAnswer("false")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question19 = Question.builder()
+                .category(categoryStorage.getById(3))
+                .type(Type.MULTIPLE)
+                .question("Which is not a CSS value?")
+                .correctAnswer("margin")
+                .incorrectAnswers(Arrays.asList("1.5rem", "lowercase", "underline"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question20 = Question.builder()
+                .category(categoryStorage.getById(4))
+                .type(Type.MULTIPLE)
+                .question("Which is not an aggregate function?")
+                .correctAnswer("DISTINCT")
+                .incorrectAnswers(Arrays.asList("AVG", "MAX", "SUM"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
         List<Question> questions = Arrays.asList(
                 question,
-                question1,
                 question2,
                 question3,
                 question4,
@@ -754,7 +1104,13 @@ public class Initializer {
                 question11,
                 question12,
                 question13,
-                question14
+                question14,
+                question15,
+                question16,
+                question17,
+                question18,
+                question19,
+                question20
         );
 
         questionStorage.addAll(questions);
@@ -900,6 +1256,19 @@ public class Initializer {
                 .appUser(appUser)
                 .build();
 
+        Question question11 = Question.builder()
+                .category(categoryStorage.getById(6))
+                .type(Type.BOOLEAN)
+                .question("Linked list is a data structure where multiple list are linked to each other.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+
         List<Question> questions = Arrays.asList(
                 question,
                 question1,
@@ -911,7 +1280,8 @@ public class Initializer {
                 question7,
                 question8,
                 question9,
-                question10
+                question10,
+                question11
         );
 
         questionStorage.addAll(questions);
