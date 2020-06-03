@@ -50,7 +50,7 @@ public class Initializer {
             loadJSQuestionsWithoutQuiz(admin);
             loadProgBasicsQuestions(username);
             loadWebQuestions(admin);
-            loadOOPQuestions(admin);
+            loadOOPJavaQuestions(admin);
         }
 
     }
@@ -87,6 +87,8 @@ public class Initializer {
         categoryStorage.add(Category.builder().name("General").build());
         categoryStorage.add(Category.builder().name("Network").build());
         categoryStorage.add(Category.builder().name("Javascript").build());
+        categoryStorage.add(Category.builder().name("Test").build());
+        categoryStorage.add(Category.builder().name("C#").build());
     }
 
     private void loadPythonQuestionsWithoutQuiz(AppUser appUser) {
@@ -1179,7 +1181,7 @@ public class Initializer {
         customQuizStorage.add(web);
     }
 
-    private void loadOOPQuestions(AppUser appUser) {
+    private void loadOOPJavaQuestions(AppUser appUser) {
 
         Question question = Question.builder()
                 .category(categoryStorage.getById(2))
@@ -1329,7 +1331,7 @@ public class Initializer {
 
         questionStorage.addAll(questions);
         CustomQuiz oop = CustomQuiz.builder()
-                .name("OOP module")
+                .name("OOP - Java module")
                 .questions(questions)
                 .appUser(appUser)
                 .build();
