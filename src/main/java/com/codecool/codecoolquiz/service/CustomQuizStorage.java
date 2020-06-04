@@ -7,10 +7,13 @@ import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizRequestBody
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizResponseBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.UserResponseBody;
+import com.codecool.codecoolquiz.model.exception.CustomQuizNameAlreadyExistException;
 import com.codecool.codecoolquiz.model.exception.NotFoundException;
+import com.codecool.codecoolquiz.model.exception.UnsuccessfulDeletion;
 import com.codecool.codecoolquiz.repository.AppUserRepository;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -44,7 +47,11 @@ public class CustomQuizStorage {
                 .questions(questionList)
                 .appUser(appUser)
                 .build();
-        add(customQuiz);
+        try {
+            add(customQuiz);
+        } catch (DataIntegrityViolationException e) {
+            throw new CustomQuizNameAlreadyExistException(name);
+        }
     }
 
     public CustomQuiz find(int id) throws NotFoundException {
