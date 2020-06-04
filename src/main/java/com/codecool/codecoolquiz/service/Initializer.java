@@ -183,7 +183,7 @@ public class Initializer {
         Question question8 = Question.builder()
                 .category(categoryStorage.getById(1))
                 .type(Type.BOOLEAN)
-                .question("To ensures that python code won't be run if the file containing your code is imported, put your code inside if __name__ == \"__main__\".")
+                .question("To ensure that python code won't be run if the file containing your code is imported, put your code inside if __name__ == \"__main__\".")
                 .correctAnswer("true")
                 .incorrectAnswer("false")
                 .creationDate(LocalDate.now())
@@ -277,7 +277,7 @@ public class Initializer {
     private void loadSQLQuestionsWithoutQuiz(AppUser appUser) {
 
         Question question = Question.builder()
-                .category(categoryStorage.getById(3))
+                .category(categoryStorage.getById(4))
                 .type(Type.MULTIPLE)
                 .question("Which is not a valid SQL statement?")
                 .correctAnswer("ORDER BY")
@@ -749,7 +749,7 @@ public class Initializer {
         Question question5 = Question.builder()
                 .category(categoryStorage.getById(6))
                 .type(Type.BOOLEAN)
-                .question("Finally statement will be executed when all the error where caught and handled.")
+                .question("Finally statement will be executed when all the exceptions where caught and handled.")
                 .correctAnswer("false")
                 .incorrectAnswer("true")
                 .creationDate(LocalDate.now())
@@ -936,7 +936,7 @@ public class Initializer {
         Question question3 = Question.builder()
                 .category(categoryStorage.getById(4))
                 .type(Type.BOOLEAN)
-                .question("Constrains allow you to summarize information about a group of rows of data.")
+                .question("Constraints allow you to summarize information about a group of rows of data.")
                 .correctAnswer("false")
                 .incorrectAnswer("true")
                 .creationDate(LocalDate.now())
@@ -1282,7 +1282,7 @@ public class Initializer {
         Question question8 = Question.builder()
                 .category(categoryStorage.getById(2))
                 .type(Type.MULTIPLE)
-                .question("Which is the valid declarations within an interface definition?")
+                .question("Which is the valid declaration within an interface definition?")
                 .correctAnswer("public double methoda();")
                 .incorrectAnswers(Arrays.asList("public final double methoda();", "static void methoda(double d1);", "protected void methoda(double d1);"))
                 .creationDate(LocalDate.now())
@@ -1306,9 +1306,72 @@ public class Initializer {
         Question question10 = Question.builder()
                 .category(categoryStorage.getById(6))
                 .type(Type.BOOLEAN)
-                .question("Linked list is a data structure where multiple list are linked to each other.")
+                .question("Linked list is a data structure where multiple lists are linked to each other.")
                 .correctAnswer("false")
                 .incorrectAnswer("true")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question11 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type(Type.MULTIPLE)
+                .question("How do you insert comments in Java code?")
+                .correctAnswer("// Comment")
+                .incorrectAnswers(Arrays.asList("# Comment", "<!-- Comment -->", "\"\"\"Comment\"\"\""))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question12 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type(Type.MULTIPLE)
+                .question("How do you create a variable with the floating number 2.8?")
+                .correctAnswer("float x = 2.8f")
+                .incorrectAnswers(Arrays.asList("float x = 2.8", "x = 2.8f", "x = 2.8"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question13 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type(Type.BOOLEAN)
+                .question("The value of a string variable can be surrounded by single quotes.")
+                .correctAnswer("false")
+                .incorrectAnswer("true")
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question14 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type(Type.MULTIPLE)
+                .question("Which method can be used to return a string in upper case letters?")
+                .correctAnswer("toUpperCase()")
+                .incorrectAnswers(Arrays.asList("upperCase()", "tuc()", "uppercase()"))
+                .creationDate(LocalDate.now())
+                .validationDate(LocalDate.now())
+                .isValidated(true)
+                .appUser(appUser)
+                .build();
+
+        Question question15 = Question.builder()
+                .category(categoryStorage.getById(2))
+                .type(Type.MULTIPLE)
+                .question("What is the correct way to create an object called myObj of MyClass?")
+                .correctAnswer("MyClass myObj = new MyClass();")
+                .incorrectAnswers(Arrays.asList(
+                        "class myObj = new MyClass();",
+                        "new myObj = MyClass();",
+                        "class MyClass = new myObj();"))
                 .creationDate(LocalDate.now())
                 .validationDate(LocalDate.now())
                 .isValidated(true)
@@ -1326,7 +1389,12 @@ public class Initializer {
                 question7,
                 question8,
                 question9,
-                question10
+                question10,
+                question11,
+                question12,
+                question13,
+                question14,
+                question15
         );
 
         questionStorage.addAll(questions);
