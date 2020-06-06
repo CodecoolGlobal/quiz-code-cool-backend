@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +42,7 @@ public class CustomQuizStorage {
         List<Question> questionList = Arrays.stream(questionIds).mapToObj(e -> questionStorage.find(e)).collect(Collectors.toList());
         CustomQuiz customQuiz = CustomQuiz.builder()
                 .name(name)
+                .creationDate(LocalDate.now())
                 .questions(questionList)
                 .appUser(appUser)
                 .build();
