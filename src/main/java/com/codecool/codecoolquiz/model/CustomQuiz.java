@@ -3,6 +3,7 @@ package com.codecool.codecoolquiz.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -26,6 +27,8 @@ public class CustomQuiz {
 
     @ManyToOne
     private AppUser appUser;
+
+    private LocalDate creationDate;
 
     public void removeQuestion(Question question)  {
         this.questions.remove(question);

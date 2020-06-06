@@ -3,6 +3,7 @@ package com.codecool.codecoolquiz.model.RequestResponseBody;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,11 +14,13 @@ public class CustomQuizResponseBody {
     private String name;
     private List<QuestionBody> questions;
     private ReferenceToOtherEntity appUser;
+    private LocalDate creationDate;
 
     public CustomQuizResponseBody(CustomQuiz customQuiz) {
         this.id = customQuiz.getId();
         this.name = customQuiz.getName();
         this.questions = customQuiz.getQuestions().stream().map(QuestionBody::new).collect(Collectors.toList());
         this.appUser = new ReferenceToOtherEntity(customQuiz.getAppUser().getId(), customQuiz.getAppUser().getUsername());
+        this.creationDate = customQuiz.getCreationDate();
     }
 }

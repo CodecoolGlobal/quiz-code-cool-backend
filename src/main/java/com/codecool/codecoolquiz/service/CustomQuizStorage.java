@@ -6,11 +6,8 @@ import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizRequestBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.CustomQuizResponseBody;
 import com.codecool.codecoolquiz.model.RequestResponseBody.QuestionBody;
-import com.codecool.codecoolquiz.model.RequestResponseBody.UserResponseBody;
 import com.codecool.codecoolquiz.model.exception.CustomQuizNameAlreadyExistException;
 import com.codecool.codecoolquiz.model.exception.NotFoundException;
-import com.codecool.codecoolquiz.model.exception.UnsuccessfulDeletion;
-import com.codecool.codecoolquiz.repository.AppUserRepository;
 import com.codecool.codecoolquiz.repository.CustomQuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -74,4 +71,10 @@ public class CustomQuizStorage {
         return customQuizzes.stream().map(CustomQuizResponseBody::new).collect(Collectors.toList());
 
     }
+
+    public List<CustomQuizResponseBody> getCustomQuizResponseBodiesByUserId(int id) {
+        List<CustomQuiz> customQuizzes = customQuizRepository.findAllByAppUserId(id);
+        return customQuizzes.stream().map(CustomQuizResponseBody::new).collect(Collectors.toList());
+    }
+
 }

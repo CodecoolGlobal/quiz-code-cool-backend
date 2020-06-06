@@ -902,6 +902,7 @@ public class Initializer {
                 .name("ProgBasics module")
                 .questions(questions)
                 .appUser(appUser)
+                .creationDate(LocalDate.now())
                 .build();
         customQuizStorage.add(progbasics);
 
@@ -1177,6 +1178,7 @@ public class Initializer {
                 .name("Web module")
                 .questions(questions)
                 .appUser(appUser)
+                .creationDate(LocalDate.now())
                 .build();
         customQuizStorage.add(web);
     }
@@ -1402,6 +1404,7 @@ public class Initializer {
                 .name("OOP - Java module")
                 .questions(questions)
                 .appUser(appUser)
+                .creationDate(LocalDate.now())
                 .build();
         customQuizStorage.add(oop);
     }

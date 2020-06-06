@@ -22,7 +22,7 @@ public class CustomQuizController {
     @Autowired
     CustomQuizStorage customQuizStorage;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/questions")
     public List<QuestionBody> getQuestionBodiesForCustomQuiz(@PathVariable int id) {
         return customQuizStorage.getQuestionBodiesForCustomQuizById(id);
     }
@@ -30,6 +30,11 @@ public class CustomQuizController {
     @GetMapping("")
     public List<CustomQuizResponseBody> getCustomQuizzes() {
         return customQuizStorage.getCustomQuizResponseBodies();
+    }
+
+    @GetMapping("/{id}")
+    public List<CustomQuizResponseBody> getCustomQuizzesByUser(@PathVariable int id) {
+        return customQuizStorage.getCustomQuizResponseBodiesByUserId(id);
     }
 
     @PostMapping("")
