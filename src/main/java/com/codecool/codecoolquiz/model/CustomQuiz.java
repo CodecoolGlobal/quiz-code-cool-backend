@@ -4,7 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -23,14 +24,11 @@ public class CustomQuiz {
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
-    private List<Question> questions;
+    private Set<Question> questions = new HashSet<>();
 
     @ManyToOne
     private AppUser appUser;
 
     private LocalDate creationDate;
 
-    public void removeQuestion(Question question)  {
-        this.questions.remove(question);
-    }
 }

@@ -32,12 +32,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll() // allowed by anyone
                 .antMatchers(HttpMethod.GET, "/categories").authenticated() // allowed only when signed in
-                .antMatchers("/customquizzes/**").authenticated() // allowed only when signed in
+                .antMatchers(HttpMethod.GET,"/customquizzes/**").authenticated() // allowed only when signed in
+                .antMatchers(HttpMethod.POST,"/customquizzes/**").authenticated() // allowed only when signed in
+                .antMatchers(HttpMethod.DELETE,"/customquizzes/**").hasAuthority("ROLE_ADMIN")  // allowed only when signed in
                 .antMatchers(HttpMethod.GET, "/questions/**").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.POST, "/questions").authenticated() // allowed only when signed in
                 .antMatchers(HttpMethod.GET, "/users/**").authenticated() // allowed only when signed in
-                .antMatchers(HttpMethod.PUT, "/questions/**").hasAuthority("ROLE_ADMIN") // allowed only when signed in
-                .antMatchers(HttpMethod.DELETE, "/questions/**").hasAuthority("ROLE_ADMIN") // allowed only when signed in
+                .antMatchers(HttpMethod.PUT, "/questions/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/questions/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/types/**").authenticated() // allowed only when signed in
                 .anyRequest().denyAll() // anything else is denied
                 // NEW PART:

@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,15 +58,14 @@ public class CustomQuizStorage {
         return customQuizRepository.findById(id).orElseThrow(() -> new NotFoundException("Custom quiz not found."));
     }
 
-    public List<Question> getCustomQuizQuestions(int id) {
+    public Set<Question> getCustomQuizQuestions(int id) {
         CustomQuiz customQuiz = find(id);
         return customQuiz.getQuestions();
     }
 
-    public List<QuestionBody> getQuestionBodiesForCustomQuizById(int id) {
-        List<Question> questions = getCustomQuizQuestions(id);
-        Collections.shuffle(questions);
-        return questions.stream().map(QuestionBody::new).collect(Collectors.toList());
+    public Set<QuestionBody> getQuestionBodiesForCustomQuizById(int id) {
+        Set<Question> questions = getCustomQuizQuestions(id);
+        return questions.stream().map(QuestionBody::new).collect(Collectors.toSet());
     }
 
     public List<CustomQuizResponseBody> getCustomQuizResponseBodies() {
@@ -79,4 +79,7 @@ public class CustomQuizStorage {
         return customQuizzes.stream().map(CustomQuizResponseBody::new).collect(Collectors.toList());
     }
 
+    public void deleteQuiz(int id) {
+        customQuizRepository.deleteById(id);
+    }
 }

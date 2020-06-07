@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -23,7 +24,7 @@ public class CustomQuizController {
     CustomQuizStorage customQuizStorage;
 
     @GetMapping("/{id}/questions")
-    public List<QuestionBody> getQuestionBodiesForCustomQuiz(@PathVariable int id) {
+    public Set<QuestionBody> getQuestionBodiesForCustomQuiz(@PathVariable int id) {
         return customQuizStorage.getQuestionBodiesForCustomQuizById(id);
     }
 
@@ -41,6 +42,11 @@ public class CustomQuizController {
     public void saveNewQuiz(@RequestBody CustomQuizRequestBody quizBody, HttpServletRequest req) {
         String username = jwtTokenServices.getUsernameFromToken(req);
         customQuizStorage.saveQuizByUserName(username, quizBody);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteQuiz(@PathVariable int id) {
+        customQuizStorage.deleteQuiz(id);
     }
 
 }

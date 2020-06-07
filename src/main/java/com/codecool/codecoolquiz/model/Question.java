@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -42,9 +44,9 @@ public class Question {
     private boolean isValidated;
 
     @Singular
-    @ManyToMany(mappedBy = "questions")
+    @ManyToMany(mappedBy = "questions", cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
-    private List<CustomQuiz> quizzes;
+    private Set<CustomQuiz> quizzes = new HashSet<>();
 
     @ManyToOne
     private AppUser appUser;

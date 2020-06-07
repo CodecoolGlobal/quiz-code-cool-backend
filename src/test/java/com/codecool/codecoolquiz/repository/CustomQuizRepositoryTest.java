@@ -6,6 +6,7 @@ import com.codecool.codecoolquiz.model.Question;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.internal.util.collections.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -22,6 +23,9 @@ class CustomQuizRepositoryTest {
 
     @Autowired
     CustomQuizRepository customQuizRepository;
+
+    @Autowired
+    QuestionRepository questionRepository;
 
     @Test
     public void testAddNewCustomQuiz() {
@@ -68,6 +72,19 @@ class CustomQuizRepositoryTest {
                 .build();
         customQuizRepository.save(customQuiz);
         assertThat(customQuizRepository.getOne(customQuiz.getId()).equals(customQuiz));
+    }
+
+    @Test
+    public void deleteCustomQuiz() {
+        CustomQuiz customQuiz = CustomQuiz.builder()
+                .name("CustomQuiz1")
+                .questions(Sets.newSet(Question.builder().question("Blabla").build(), Question.builder().question("valami").build()))
+                .build();
+        customQuizRepository.save(customQuiz);
+        customQuizRepository.deleteById(1);
+        assertThat(customQuizRepository.findAll().size() == 0);
+        assertThat(questionRepository.findAll().size() == 2);
+
     }
 
 
