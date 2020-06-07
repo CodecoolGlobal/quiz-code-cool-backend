@@ -1,11 +1,9 @@
 package com.codecool.codecoolquiz.service;
-
 import com.codecool.codecoolquiz.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
