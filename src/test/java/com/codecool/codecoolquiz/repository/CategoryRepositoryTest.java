@@ -81,18 +81,23 @@ class CategoryRepositoryTest {
 
     @Test
     public void persistQuestionWithCategory() {
-        Category category = Category.builder()
-                .name("category test")
-                .build();
 
         Question question = Question.builder()
                 .question("does it persist with category?")
-                .category(category)
                 .build();
 
-        questionRepository.save(question);
+        Question question2 = Question.builder()
+                .question("new q")
+                .build();
 
-        List<Category> categoryList = categoryRepository.findAll();
-        assertThat(categoryList).hasSize(1);
+        Category category = Category.builder()
+                .name("category test")
+                .questions(Lists.list(question, question2))
+                .build();
+
+        categoryRepository.save(category);
+
+        List<Question> categoryList = questionRepository.findAll();
+        assertThat(categoryList).hasSize(2);
     }
 }
