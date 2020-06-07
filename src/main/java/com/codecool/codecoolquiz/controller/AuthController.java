@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthController {
 
+    @Value("${cookie.domain}")
+    private String cookiedomain;
+
     @Value("${jwt.expiration.minutes:60}")
     private long cookieMaxAgeMinutes;
 
@@ -58,7 +61,7 @@ public class AuthController {
 
     private void addTokenToCookie(HttpServletResponse response, String token) {
         ResponseCookie cookie = ResponseCookie.from("token", token)
-                .domain("localhost") // should be parameterized
+                .domain(cookiedomain) // should be parameterized
                 .sameSite("Strict")  // CSRF
 //                .secure(true)
                 .maxAge(Duration.ofMinutes(cookieMaxAgeMinutes))
