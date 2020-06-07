@@ -21,7 +21,7 @@ public class Question {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     private Category category;
 

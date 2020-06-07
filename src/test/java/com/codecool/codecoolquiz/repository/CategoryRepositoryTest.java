@@ -2,12 +2,13 @@ package com.codecool.codecoolquiz.repository;
 
 import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.Question;
-import com.codecool.codecoolquiz.model.Type;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -22,6 +23,9 @@ class CategoryRepositoryTest {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @Test
     public void testAddNewCategory() {
@@ -56,5 +60,39 @@ class CategoryRepositoryTest {
                 .build();
         categoryRepository.save(category1);
         assertThat(categoryRepository.getOne(category1.getId()).equals(category1));
+    }
+
+    @Test
+    public void saveUniqueFieldTwiceInCategory() {
+        Category category1 = Category.builder()
+                .name("category test")
+                .build();
+
+        categoryRepository.save(category1);
+
+        Category category2 = Category.builder()
+                .name("category test")
+                .build();
+
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
+            categoryRepository.saveAndFlush(category2);
+        });
+    }
+
+    @Test
+    public void persistQuestionWithCategory() {
+        Category category = Category.builder()
+                .name("category test")
+                .build();
+
+        Question question = Question.builder()
+                .question("does it persist with category?")
+                .category(category)
+                .build();
+
+        questionRepository.save(question);
+
+        List<Category> categoryList = categoryRepository.findAll();
+        assertThat(categoryList).hasSize(1);
     }
 }

@@ -2,10 +2,6 @@ package com.codecool.codecoolquiz.repository;
 
 import com.codecool.codecoolquiz.model.Question;
 import com.codecool.codecoolquiz.model.Type;
-import com.codecool.codecoolquiz.service.CategoryStorage;
-import com.codecool.codecoolquiz.service.CustomQuizStorage;
-import com.codecool.codecoolquiz.service.Initializer;
-import com.codecool.codecoolquiz.service.QuestionStorage;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,8 +21,6 @@ class QuestionRepositoryTest {
 
     @Autowired
     QuestionRepository questionRepository;
-
-
 
     @Test
     public void testAddNewQuestion() {
@@ -57,5 +51,54 @@ class QuestionRepositoryTest {
     List<Type> types = questionRepository.findTypes();
     assertThat(types).containsExactlyInAnyOrder(Type.MULTIPLE, Type.BOOLEAN);
 
+    }
+
+    @Test
+    public void saveQuestionsWithTheSameName() {
+        Question question1 = Question.builder()
+                .question("question test")
+                .build();
+
+        questionRepository.save(question1);
+
+        Question question2 = Question.builder()
+                .question("question test")
+                .build();
+
+        questionRepository.save(question2);
+
+        List<Question> questionList = questionRepository.findAll();
+        assertThat(questionList).hasSize(2);
+    }
+
+    @Test
+    public void findTypesInQuestion() {
+        Question question1 = Question.builder()
+                .question("question1")
+                .type(Type.MULTIPLE)
+                .build();
+
+        Question question2 = Question.builder()
+                .question("question2")
+                .type(Type.BOOLEAN)
+                .build();
+
+        Question question3 = Question.builder()
+                .question("question3")
+                .type(Type.BOOLEAN)
+                .build();
+
+        Question question4 = Question.builder()
+                .question("question4")
+                .type(Type.MULTIPLE)
+                .build();
+
+        questionRepository.saveAll(Lists.newArrayList(question1, question2, question3, question4));
+
+        List<Type> allTypes = questionRepository.findTypes();
+
+        assertThat(allTypes)
+                .hasSize(2)
+                .containsOnlyOnce(Type.MULTIPLE, Type.BOOLEAN);
     }
 }

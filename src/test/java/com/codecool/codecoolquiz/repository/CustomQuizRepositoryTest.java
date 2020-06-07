@@ -1,14 +1,15 @@
 package com.codecool.codecoolquiz.repository;
 
-import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.CustomQuiz;
 import com.codecool.codecoolquiz.model.Question;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.internal.util.collections.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -81,11 +82,24 @@ class CustomQuizRepositoryTest {
                 .questions(Sets.newSet(Question.builder().question("Blabla").build(), Question.builder().question("valami").build()))
                 .build();
         customQuizRepository.save(customQuiz);
-        customQuizRepository.deleteById(1);
+        customQuizRepository.delete(customQuiz);
         assertThat(customQuizRepository.findAll().size() == 0);
         assertThat(questionRepository.findAll().size() == 2);
-
     }
 
+    @Test
+    public void saveUniqueFieldInCustomQuiz() {
+        CustomQuiz customQuiz1 = CustomQuiz.builder()
+                .name("quiz test")
+                .build();
+
+        customQuizRepository.save(customQuiz1);
+
+        CustomQuiz customQuiz2 = CustomQuiz.builder()
+                .name("quiz test")
+                .build();
+
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> customQuizRepository.saveAndFlush(customQuiz2));
+    }
 
 }
