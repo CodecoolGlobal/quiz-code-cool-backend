@@ -22,7 +22,7 @@ public class Category {
     private String name;
 
     @Singular
-    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "category")
     @EqualsAndHashCode.Exclude
     private Set<Question> questions;
 }
