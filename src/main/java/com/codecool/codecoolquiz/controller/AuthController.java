@@ -63,7 +63,7 @@ public class AuthController {
         ResponseCookie cookie = ResponseCookie.from("token", token)
                 .domain(cookiedomain) // should be parameterized
                 .sameSite("Strict")  // CSRF
-//                .secure(true)
+                .secure(true)
                 .maxAge(Duration.ofMinutes(cookieMaxAgeMinutes))
                 .httpOnly(true)      // XSS
                 .path("/")
