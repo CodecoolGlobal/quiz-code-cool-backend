@@ -23,10 +23,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Value("${cookie.secure:false}")
+    @Value("${cookie.secure}")
     private boolean isCookieSecure;
 
-    @Value("${cookie.domain:localhost}")
+    @Value("${cookie.domain}")
     private String cookiedomain;
 
     @Value("${jwt.expiration.minutes:120}")
@@ -65,7 +65,7 @@ public class AuthController {
     private void addTokenToCookie(HttpServletResponse response, String token) {
         ResponseCookie cookie = ResponseCookie.from("token", token)
                 .domain(cookiedomain) // should be parameterized
-//                .sameSite(true)  // CSRF
+//              .sameSite(true)  // CSRF
                 .secure(isCookieSecure)
                 .maxAge(Duration.ofMinutes(cookieMaxAgeMinutes))
                 .httpOnly(true)      // XSS
