@@ -17,10 +17,8 @@ public class CrossOriginConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(allowedOrigin)
-                        .allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
-                        .allowCredentials(true);
+                registry.addMapping("/**").allowedOrigins(allowedOrigin)
+                        .allowedMethods("*").allowCredentials(true);
             }
         };
     }
