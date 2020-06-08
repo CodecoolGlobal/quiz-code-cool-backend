@@ -26,9 +26,6 @@ public class AuthController {
     @Value("${cookie.secure:false}")
     private boolean isCookieSecure;
 
-    @Value("${cookie.sameSite:Lax}")
-    private String sameSite;
-
     @Value("${cookie.domain:localhost}")
     private String cookiedomain;
 
@@ -68,7 +65,7 @@ public class AuthController {
     private void addTokenToCookie(HttpServletResponse response, String token) {
         ResponseCookie cookie = ResponseCookie.from("token", token)
                 .domain(cookiedomain) // should be parameterized
-                .sameSite(sameSite)  // CSRF
+//                .sameSite(true)  // CSRF
                 .secure(isCookieSecure)
                 .maxAge(Duration.ofMinutes(cookieMaxAgeMinutes))
                 .httpOnly(true)      // XSS
