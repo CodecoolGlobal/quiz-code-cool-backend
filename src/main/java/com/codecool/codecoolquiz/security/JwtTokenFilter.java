@@ -1,5 +1,6 @@
 package com.codecool.codecoolquiz.security;
 
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,11 +32,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                         .findFirst();
 
         if (jwtToken.isPresent()) {
-            UsernamePasswordAuthenticationToken userToken = jwtTokenServices.validateTokenAndExtractUserSpringToken(jwtToken.get().getValue());
-            SecurityContextHolder.getContext().setAuthentication(userToken);
-
+            try {
+                UsernamePasswordAuthenticationToken userToken = jwtTokenServices.validateTokenAndExtractUserSpringToken(jwtToken.get().getValue());
+                SecurityContextHolder.getContext().setAuthentication(userToken);
+            } catch (SignatureException ex) {
+                jwtTokenServices.eraseCookie(res, req);
+                SecurityContextHolder.clearContext();
+            }
         }
-
         // process the next filter.
         filterChain.doFilter(req, res);
     }
