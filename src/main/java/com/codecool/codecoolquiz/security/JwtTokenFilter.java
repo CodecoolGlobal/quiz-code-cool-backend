@@ -35,7 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             try {
                 UsernamePasswordAuthenticationToken userToken = jwtTokenServices.validateTokenAndExtractUserSpringToken(jwtToken.get().getValue());
                 SecurityContextHolder.getContext().setAuthentication(userToken);
-            } catch (SignatureException ex) {
+            } catch (SignatureException | IllegalArgumentException exp) {
                 jwtTokenServices.eraseCookie(res, req);
                 SecurityContextHolder.clearContext();
             }
