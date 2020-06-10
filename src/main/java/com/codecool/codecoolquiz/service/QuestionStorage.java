@@ -77,7 +77,7 @@ public class QuestionStorage extends SpecificationArgumentResolver {
         try {
             questionRepository.deleteById(questionId);
         } catch (DataIntegrityViolationException e) {
-            throw new UnsuccessfulDeletion("Question" + questionId + " cannot be deleted, as long as it appears in a quiz.");
+            throw new UnsuccessfulDeletion("Question " + questionId + " cannot be deleted, as long as it appears in a quiz.");
         }
     }
 
