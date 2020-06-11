@@ -1,6 +1,7 @@
 package com.codecool.codecoolquiz.service;
 import com.codecool.codecoolquiz.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -25,6 +26,12 @@ public class Initializer {
 
     @Autowired
     CustomQuizStorage customQuizStorage;
+
+    @Value("${user.password}")
+    private String userPassword;
+
+    @Value("${admin.password}")
+    private String adminPassword;
 
     @PostConstruct
     public void loadInitData() {
@@ -55,7 +62,7 @@ public class Initializer {
         appUserStorage.add(
                 AppUser.builder()
                         .username("admin")
-                        .password(encoder.encode("password1"))
+                        .password(encoder.encode(adminPassword))
                         .role("USER")
                         .role("ADMIN")
                         .email("admin@codecool.com")
@@ -66,7 +73,7 @@ public class Initializer {
         appUserStorage.add(
                 AppUser.builder()
                         .username("username")
-                        .password(encoder.encode("password1"))
+                        .password(encoder.encode(userPassword))
                         .role("USER")
                         .email("user@codecool.com")
                         .registrationDate(LocalDate.now())
