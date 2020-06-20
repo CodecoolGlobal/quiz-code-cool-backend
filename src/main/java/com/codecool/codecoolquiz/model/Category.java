@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
@@ -18,7 +19,8 @@ public class Category {
     @GeneratedValue
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotNull
     private String name;
 
     @Singular

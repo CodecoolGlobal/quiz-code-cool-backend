@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -23,20 +24,25 @@ public class Question {
 
     @ManyToOne
     @EqualsAndHashCode.Exclude
+    @NotNull
     private Category category;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Type type;
 
-    @Column( nullable = false )
+    @NotNull
     private String question;
 
+    @NotNull
     private String correctAnswer;
 
     @ElementCollection
     @Singular
+    @NotNull
     private List<String> incorrectAnswers;
 
+    @NotNull
     private LocalDate creationDate;
 
     private LocalDate validationDate;

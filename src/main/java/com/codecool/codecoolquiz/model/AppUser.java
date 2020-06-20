@@ -3,6 +3,7 @@ package com.codecool.codecoolquiz.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,13 +19,17 @@ public class AppUser {
     private Integer id;
 
     @Column(unique = true)
+    @NotNull
     private String username;
 
+    @NotNull
     private String password;
 
     @Column(unique = true)
+    @NotNull
     private String email;
 
+    @NotNull
     private LocalDate registrationDate;
 
     @ElementCollection

@@ -3,6 +3,7 @@ package com.codecool.codecoolquiz.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,8 @@ public class CustomQuiz {
     @GeneratedValue
     private Integer id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotNull
     private String name;
 
     @Singular
@@ -27,8 +29,10 @@ public class CustomQuiz {
     private Set<Question> questions = new HashSet<>();
 
     @ManyToOne
+    @NotNull
     private AppUser appUser;
 
+    @NotNull
     private LocalDate creationDate;
 
 }
