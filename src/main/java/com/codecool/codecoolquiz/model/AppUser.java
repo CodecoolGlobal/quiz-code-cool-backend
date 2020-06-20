@@ -34,6 +34,7 @@ public class AppUser {
 
     @ElementCollection
     @Singular
+    @NotNull
     private List<String> roles;
 
     @OneToMany(mappedBy = "appUser")

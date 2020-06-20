@@ -26,10 +26,10 @@ public class CustomQuiz {
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
+    @NotNull
     private Set<Question> questions = new HashSet<>();
 
-    @ManyToOne
-    @NotNull
+    @ManyToOne(optional = false)
     private AppUser appUser;
 
     @NotNull

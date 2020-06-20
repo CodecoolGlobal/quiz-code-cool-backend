@@ -2,6 +2,7 @@ package com.codecool.codecoolquiz.repository;
 
 import com.codecool.codecoolquiz.model.Category;
 import com.codecool.codecoolquiz.model.Question;
+import com.codecool.codecoolquiz.model.Type;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CategoryRepositoryTest {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -74,30 +77,37 @@ class CategoryRepositoryTest {
                 .name("category test")
                 .build();
 
-        Assertions.assertThrows(DataIntegrityViolationException.class, () -> {
-            categoryRepository.saveAndFlush(category2);
-        });
+        Assertions.assertThrows(DataIntegrityViolationException.class, () -> categoryRepository.saveAndFlush(category2));
     }
 
     @Test
-    public void persistQuestionWithCategory() {
+    public void persistCategoryWithQuestion() {
+
+        Category category1 = Category.builder()
+                .name("category test")
+                .build();
 
         Question question = Question.builder()
                 .question("does it persist with category?")
+                .correctAnswer("Yes")
+                .incorrectAnswer("No")
+                .creationDate(LocalDate.now())
+                .category(category1)
+                .type(Type.BOOLEAN)
                 .build();
 
         Question question2 = Question.builder()
                 .question("new q")
+                .category(category1)
+                .correctAnswer("something")
+                .incorrectAnswers(Arrays.asList("head", "more", "tail"))
+                .type(Type.MULTIPLE)
+                .creationDate(LocalDate.now())
                 .build();
 
-        Category category = Category.builder()
-                .name("category test")
-                .questions(Lists.list(question, question2))
-                .build();
+        questionRepository.saveAll(Arrays.asList(question, question2));
 
-        categoryRepository.save(category);
-
-        List<Question> categoryList = questionRepository.findAll();
-        assertThat(categoryList).hasSize(2);
+        List<Category> categoryList = categoryRepository.findAll();
+        assertThat(categoryList).hasSize(1);
     }
 }

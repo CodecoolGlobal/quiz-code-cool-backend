@@ -22,7 +22,7 @@ public class Question {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     @NotNull
     private Category category;
@@ -47,6 +47,7 @@ public class Question {
 
     private LocalDate validationDate;
 
+    @NotNull
     private boolean isValidated;
 
     @Singular
