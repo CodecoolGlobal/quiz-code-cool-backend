@@ -22,9 +22,8 @@ public class Question {
     @GeneratedValue
     private Integer id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST, optional = false)
     @EqualsAndHashCode.Exclude
-    @NotNull
     private Category category;
 
     @Enumerated(EnumType.STRING)
@@ -55,7 +54,7 @@ public class Question {
     @EqualsAndHashCode.Exclude
     private Set<CustomQuiz> quizzes = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private AppUser appUser;
 
     @Override

@@ -14,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +44,7 @@ class QuestionRepositoryTest {
                 .incorrectAnswers(Lists.newArrayList("2", "1", "3"))
                 .correctAnswer("4")
                 .type(Type.MULTIPLE)
-                .appUser(appUserRepository.findById(1).orElse(null))
+                .appUser(appUserRepository.findByUsername("valaki").orElse(null))
                 .category(Category.builder().name("Web").build())
                 .creationDate(LocalDate.now())
                 .isValidated(false)
@@ -72,7 +71,7 @@ class QuestionRepositoryTest {
                 .incorrectAnswers(Lists.newArrayList("2", "1", "3"))
                 .correctAnswer("4")
                 .type(Type.MULTIPLE)
-                .appUser(appUserRepository.findById(1).orElse(null))
+                .appUser(appUserRepository.findByUsername("valaki").orElse(null))
                 .category(Category.builder().name("SQL").build())
                 .creationDate(LocalDate.now())
                 .isValidated(false)
@@ -90,7 +89,7 @@ class QuestionRepositoryTest {
                 .incorrectAnswer("v")
                 .correctAnswer("Correct")
                 .type(Type.BOOLEAN)
-                .appUser(appUserRepository.findById(1).orElse(null))
+                .appUser(appUserRepository.findByUsername("valaki").orElse(null))
                 .category(Category.builder().name("Web").build())
                 .creationDate(LocalDate.now())
                 .isValidated(false)
@@ -100,7 +99,7 @@ class QuestionRepositoryTest {
                 .incorrectAnswers(Lists.newArrayList("2", "1", "3"))
                 .correctAnswer("4")
                 .type(Type.MULTIPLE)
-                .appUser(appUserRepository.findById(1).orElse(null))
+                .appUser(appUserRepository.findByUsername("valaki").orElse(null))
                 .category(Category.builder().name("SQL").build())
                 .creationDate(LocalDate.now())
                 .isValidated(false)
