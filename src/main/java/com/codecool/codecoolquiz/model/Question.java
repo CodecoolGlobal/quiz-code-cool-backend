@@ -54,7 +54,7 @@ public class Question {
     @EqualsAndHashCode.Exclude
     private Set<CustomQuiz> quizzes = new HashSet<>();
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private AppUser appUser;
 
     @Override
