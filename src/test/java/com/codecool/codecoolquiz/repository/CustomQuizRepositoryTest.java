@@ -33,35 +33,41 @@ class CustomQuizRepositoryTest {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     AppUser appUser;
     Question question1;
     Question question2;
+    Category category1;
 
     @BeforeEach
     public void setup() {
         appUser = AppUser.builder().role("ADMIN").email("vvv@gd.de").password("valami").username("valaki").registrationDate(LocalDate.now()).build();
         appUserRepository.save(appUser);
-        Category category1 = Category.builder()
+        category1 = Category.builder()
                 .name("category test")
                 .build();
+
+        categoryRepository.save(category1);
 
         question1 = Question.builder()
                 .question("does it persist with category?")
                 .correctAnswer("Yes")
                 .incorrectAnswer("No")
                 .creationDate(LocalDate.now())
-                .category(category1)
                 .type(Type.BOOLEAN)
                 .appUser(appUser)
+                .category(category1)
                 .build();
 
         question2 = Question.builder()
                 .question("new q")
-                .category(category1)
                 .correctAnswer("something")
                 .incorrectAnswers(Arrays.asList("head", "more", "tail"))
                 .type(Type.MULTIPLE)
                 .creationDate(LocalDate.now())
+                .category(category1)
                 .appUser(appUser)
                 .build();
         questionRepository.saveAll(Arrays.asList(question2, question1));

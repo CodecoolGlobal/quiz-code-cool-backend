@@ -24,17 +24,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 class QuestionRepositoryTest {
 
     @Autowired
-    QuestionRepository questionRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     AppUser appUser;
+    Category category1;
 
     @BeforeEach
     public void setup() {
         appUser = AppUser.builder().role("ADMIN").email("vvv@gd.de").password("valami").username("valaki").registrationDate(LocalDate.now()).build();
         appUserRepository.save(appUser);
+        category1 = Category.builder().name("Web").build();
+        categoryRepository.save(category1);
     }
 
     @Test
@@ -45,7 +51,7 @@ class QuestionRepositoryTest {
                 .correctAnswer("4")
                 .type(Type.MULTIPLE)
                 .appUser(appUserRepository.findByUsername("valaki").orElse(null))
-                .category(Category.builder().name("Web").build())
+                .category(category1)
                 .creationDate(LocalDate.now())
                 .isValidated(false)
                 .build();
@@ -62,7 +68,7 @@ class QuestionRepositoryTest {
                 .correctAnswer("Correct")
                 .type(Type.BOOLEAN)
                 .appUser(appUserRepository.findById(1).orElse(null))
-                .category(Category.builder().name("Web").build())
+                .category(category1)
                 .creationDate(LocalDate.now())
                 .isValidated(false)
                 .build();
@@ -72,7 +78,7 @@ class QuestionRepositoryTest {
                 .correctAnswer("4")
                 .type(Type.MULTIPLE)
                 .appUser(appUserRepository.findByUsername("valaki").orElse(null))
-                .category(Category.builder().name("SQL").build())
+                .category(category1)
                 .creationDate(LocalDate.now())
                 .isValidated(false)
                 .build();
@@ -90,7 +96,7 @@ class QuestionRepositoryTest {
                 .correctAnswer("Correct")
                 .type(Type.BOOLEAN)
                 .appUser(appUserRepository.findByUsername("valaki").orElse(null))
-                .category(Category.builder().name("Web").build())
+                .category(category1)
                 .creationDate(LocalDate.now())
                 .isValidated(false)
                 .build();
@@ -100,7 +106,7 @@ class QuestionRepositoryTest {
                 .correctAnswer("4")
                 .type(Type.MULTIPLE)
                 .appUser(appUserRepository.findByUsername("valaki").orElse(null))
-                .category(Category.builder().name("SQL").build())
+                .category(category1)
                 .creationDate(LocalDate.now())
                 .isValidated(false)
                 .build();

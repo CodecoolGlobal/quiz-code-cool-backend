@@ -80,34 +80,4 @@ class CategoryRepositoryTest {
         Assertions.assertThrows(DataIntegrityViolationException.class, () -> categoryRepository.saveAndFlush(category2));
     }
 
-    @Test
-    public void persistCategoryWithQuestion() {
-
-        Category category1 = Category.builder()
-                .name("category test")
-                .build();
-
-        Question question = Question.builder()
-                .question("does it persist with category?")
-                .correctAnswer("Yes")
-                .incorrectAnswer("No")
-                .creationDate(LocalDate.now())
-                .category(category1)
-                .type(Type.BOOLEAN)
-                .build();
-
-        Question question2 = Question.builder()
-                .question("new q")
-                .category(category1)
-                .correctAnswer("something")
-                .incorrectAnswers(Arrays.asList("head", "more", "tail"))
-                .type(Type.MULTIPLE)
-                .creationDate(LocalDate.now())
-                .build();
-
-        questionRepository.saveAll(Arrays.asList(question, question2));
-
-        List<Category> categoryList = categoryRepository.findAll();
-        assertThat(categoryList).hasSize(1);
-    }
 }
